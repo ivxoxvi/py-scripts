@@ -2,8 +2,8 @@ from collections import Counter
 from util.readFile import read
 import json
 
-argsFilePath = r'json\args.txt'
-jsonFilePath = r'json\json.json'
+argsFilePath = r'.\args.txt'
+jsonFilePath = r'.\json.json'
 
 argsList = [line.strip() for line in read(argsFilePath, type = list)]
 jsonStr = read(jsonFilePath)
