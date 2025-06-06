@@ -1,6 +1,10 @@
-def read(filePath, *, type = str):
+import json
+
+def readFile(filePath, *, type = 'str'):
     with open(filePath, 'r') as file:
-        if type == str:
+        if type == 'str':
             return file.read()
-        if type == list:
+        if type == 'list':
             return file.readlines()
+        if type == 'json':
+            return json.load(file)
