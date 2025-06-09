@@ -1,12 +1,12 @@
 import sys
-import os
-sys.path.append(os.getcwd())
+from pathlib import Path
 
+sys.path.append(str(Path(__file__).parent.parent))
 from util.readFile import readFile
 
 result = []
-data_1 = readFile(r'.\find-json-diff\data1.json', type='json')
-data_2 = readFile(r'.\find-json-diff\data2.json', type='json')
+data_1 = readFile(r'data1.json', type='json')
+data_2 = readFile(r'data2.json', type='json')
 
 # write your code here
 firstRecordList = [d['trackingNumber'] for d in data_1]
@@ -16,7 +16,7 @@ for tk in firstRecordList:
     if tk in secondRecordList:
         result.append(tk)
 
-# ptint result
+# print result
 print('-----------------------------------------------')
 print('RESULT:')
 print('-----------------------------------------------')
