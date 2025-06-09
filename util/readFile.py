@@ -3,9 +3,13 @@ import inspect
 from pathlib import Path
 
 def readFile(path, *, type = 'str'):
-    caller_file = inspect.stack()[1].filename
-    real_path = Path(caller_file).parent / path
-    
+    real_path = None
+    if not Path(path).is_absolute():
+        caller_file = inspect.stack()[1].filename
+        real_path = Path(caller_file).parent / path
+    else:
+        real_path = path
+
     with open(real_path, 'r') as file:
         if type == 'str':
             return file.read()
