@@ -2,11 +2,11 @@ import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
-from util.readFile import readFile
+from util.rwFile import rfile
 
 result = []
-data_1 = readFile(r'data1.json', type='json')
-data_2 = readFile(r'data2.json', type='json')
+data_1 = rfile(r'data1.json', type='json')
+data_2 = rfile(r'data2.json', type='json')
 
 # write your code here
 firstRecordList = [d['trackingNumber'] for d in data_1]

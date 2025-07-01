@@ -3,14 +3,14 @@ import os
 sys.path.append(os.getcwd())
 
 from collections import Counter
-from util.readFile import readFile
+from util.rwFile import rfile
 import json
 
 argsFilePath = r'find-json-rel-data\args.txt'
 jsonFilePath = r'find-json-rel-data\data.json'
 
-argsList = [line.strip() for line in readFile(argsFilePath, type = 'list')]
-jsonStr = readFile(jsonFilePath)
+argsList = [line.strip() for line in rfile(argsFilePath, type = 'list')]
+jsonStr = rfile(jsonFilePath)
 
 args = set(argsList)
 jsonObject = json.loads(jsonStr)
