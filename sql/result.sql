@@ -1,4 +1,4 @@
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select *
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select *
 from (select distinct tse.DisplayName as                                   ''店铺'',
                       tor.PayPalTxID  as                                   ''OrderID'',
                       tod.ItemCode,
@@ -96,15 +96,59 @@ from (select distinct tse.DisplayName as                                   ''店
         and tse.shipping_fee_type = ''drop_shipping_account_buy_fee''
         and tse.StoreID not in (325)) temp
 where 1 = 1
-order by temp.订单类型, temp.订单导入时间, temp.OrderID','22年10月1日之后未分单数据','chenkailiang@gigacloudtech.com','liuchao@gigacloudtech.com,shenzhenxing@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,its@gigacloudtech.com','店铺,销售订单号,SKU,订单状态,订单导入时间,订单销售时间,仓库id,仓库code,备注,订单类型','12 2,8,14,20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select twe.warehouseCode,convert(varchar(10), max(created_date_time),120) latestSyncDate
+order by temp.订单类型, temp.订单导入时间, temp.OrderID','22年10月1日之后未分单数据','chenkailiang@gigacloudtech.com','liuchao@gigacloudtech.com,shenzhenxing@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,its@gigacloudtech.com','店铺,销售订单号,SKU,订单状态,订单导入时间,订单销售时间,仓库id,仓库code,备注,订单类型','12 2,8,14,20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>宋颖慧,刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select twe.warehouseCode,convert(varchar(10), max(created_date_time),120) latestSyncDate
 from tbl_wms_pick_zone_inventory wpi
 inner join tblWarehouseExts twe on twe.warehouseId = wpi.warehouse_id
 where wpi.created_date_time < convert(varchar(10), GETDATE(), 120)
 and wpi.created_date_time > GETDATE() -7
 group by twe.warehouseCode
-order by twe.warehouseCode','WMS库存及库位数据未及时同步到DRP','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,lizhenbiao@gigacloudtech.com','wanyuanqi@gigacloudtech.com','仓库CODE,库存最近同步日期','23 3 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+order by twe.warehouseCode','WMS库存及库位数据未及时同步到DRP','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,lizhenbiao@gigacloudtech.com','wanyuanqi@gigacloudtech.com','仓库CODE,库存最近同步日期','23 3 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
                        tor.PayPalTxID,
                        tor.OrderDate,
                        tod.ItemCode,
@@ -120,8 +164,30 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
                      and (tod.ItemStatus =16 or tss.Status = 8)
                      and tor.orderDate > getdate()-60
                    order by tor.OrderDate desc
-                   ','【重要】大健云BO订单','csr_giga@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','PayPalTxID,OrderDate,ItemCode,WarehouseCode','0 21 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+                   ','【重要】大健云BO订单','csr_giga@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','PayPalTxID,OrderDate,ItemCode,WarehouseCode','0 21 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>石珊珊,閤飞</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
                                                                                 tos.orderDate
                                                                                  ,ts.StorePrefix+''-''+CONVERT(VARCHAR(50),tos.orderNumber) as OrderNumber
                                                                                  ,tos.PAYPALTXID  as OrderId
@@ -134,8 +200,30 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
                                                                             where 1=1
                                                                               and tse.sales_platform in (''dajian_wayfair_fbm'', ''dajian_fbm'')
                                                                               and tos.ORDERSTATUS in (1,4)
-                                                                            order by  tos.storeID','【WOS-监控】大健云 New Order And OnHold 订单','csr_giga@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,chenhuizhu@gigacloudtech.com','OrderDate,OrderNumber,OrderID,Orderstatus','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tul.orderId,
+                                                                            order by  tos.storeID','【WOS-监控】大健云 New Order And OnHold 订单','csr_giga@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,chenhuizhu@gigacloudtech.com','OrderDate,OrderNumber,OrderID,Orderstatus','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>石珊珊,刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tul.orderId,
        CASE tul.worktype
            when 44 THEN N''UPS BUY LABEL失败''
            when 144 THEN N''AMAZON BUY LABEL失败''
@@ -192,8 +280,30 @@ where tul.worktype in (19)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
 group by tul.orderId, tul.errmessage, tod.ItemCode','【WOS-监控】大健云buy label失败
-','csr_giga@gigacloudtech.com','songyinghui@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com','订单号,label类型,错误信息,SKU','3 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct ts.StoreName,
+','csr_giga@gigacloudtech.com','songyinghui@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com','订单号,label类型,错误信息,SKU','3 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct ts.StoreName,
                 tos.OrderDate,
                 ts.StorePrefix + ''-'' + CONVERT(varchar(50), tos.orderNumber) as OrderNumber,
                 tos.PAYPALTXID                                               as ''salesOrderNumber'',
@@ -210,8 +320,30 @@ where tss.Carrier = 7
        321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341, 342,
        343, 344, 345, 346, 347, 348)
   and tse.sales_platform in (''amazon_fbm'')
-  and convert(varchar(100), tss.ShipDate, 110) = convert(varchar(100), getdate(), 110)','【重要】-如下超大件订单请检查运单号是否上传到销售平台','dongqiuqun@gigacloudtech.com,gaoxianglan@gigacloudtech.com,suzhou_CSR@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenkailiang@gigacloudtech.com','StoreName,OrderDate,OrderNumber,SalesOrderNumber,OrderStatus','0 21 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+  and convert(varchar(100), tss.ShipDate, 110) = convert(varchar(100), getdate(), 110)','【重要】-如下超大件订单请检查运单号是否上传到销售平台','dongqiuqun@gigacloudtech.com,gaoxianglan@gigacloudtech.com,suzhou_CSR@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenkailiang@gigacloudtech.com','StoreName,OrderDate,OrderNumber,SalesOrderNumber,OrderStatus','0 21 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>董求群</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy FedEx Label''                           AS workname,
@@ -280,8 +412,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales1@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales1@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy FedEx Label''                           AS workname,
@@ -350,8 +504,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS、Amazon Buy Label 失败 - DRP','fzsales2@gigacloudtech.com','drp_us_it@gigacloudtech.com,yuebeibei@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS、Amazon Buy Label 失败 - DRP','fzsales2@gigacloudtech.com','drp_us_it@gigacloudtech.com,yuebeibei@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy FedEx Label''                           AS workname,
@@ -420,8 +596,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales3@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales3@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy FedEx Label''                           AS workname,
@@ -491,8 +689,30 @@ where tul.worktype in (19)
   and tse.StoreID in (331, 314, 313, 328)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales4@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales4@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy FedEx Label''                           AS workname,
@@ -561,8 +781,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales5@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales5@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy FedEx Label''                           AS workname,
@@ -632,8 +874,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales6@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','fzsales6@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.DisplayName,
        case
            when tse.shipping_fee_type = ''drop_shipping_account_buy_fee'' then N''一件代发''
            when tse.shipping_fee_type in (''pick_up_account_buy_fee'', ''pick_up_buyer_upload_fee'') then N''上门取货''
@@ -652,8 +916,30 @@ from tblBackOrderTrail tbot WITH (nolock)
          left join tblWarehouseExts twe WITH (nolock) on twe.warehouseId = tpl.warehouse_id
 where tbot.BackOrderFlag = 8
   and tbot.UpdatedDate > GETDATE() - 1
-order by tbot.UpdatedDate desc, twe.warehouseCode, PayPalTxID','每日盘点美国仓库BO数据','its@gigacloudtech.com,wuyating@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','店铺,订单类型,销售订单号,订单状态,SKU,仓库,BO时间','10 22 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select business_type,
+order by tbot.UpdatedDate desc, twe.warehouseCode, PayPalTxID','每日盘点美国仓库BO数据','its@gigacloudtech.com,wuyating@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','店铺,订单类型,销售订单号,订单状态,SKU,仓库,BO时间','10 22 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>陈开亮</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select business_type,
        isnull(t.carrier, ''-'') as carrier,
        CA2,
        CA3,
@@ -1080,8 +1366,30 @@ from (SELECT wsv.sort,
                         group by t.warehouseCode, t.carrier, t.business_type) t
                   group by t.warehouseCode, t.carrier) t PIVOT (SUM(t.qty) FOR [WarehouseCode] IN ("CA2","CA3","CA4","CA5","CA6","CA7","CA8","CA9","CA10","CA11","CAL2","CAN1","CAN2","CAN3","NJ2","NJ3","NJ4","AT1","AT2","AT3","AT4","AT5","ATN1","TX1", "CANADAH1")) AS T) wsv) t
 where t.business_type <> ''b2bcloudwh_sum''
-order by t.sort, t.business_type','【WOS-监控】美国仓库已发单数日报','larry_wu@gigacloudtech.com,haoxinyan@gigacloudtech.com,wanxin@gigacloudtech.com,wangyan@gigacloudtech.com,mabin@gigacloudtech.com,xukunming@gigacloudtech.com,lunjia.li@gigacloudtech.com,wang.xin@gigacloudtech.com,stella.tian@gigacloudtech.com','mingdi.zhang@gigacloudtech.com,lei.yan@gigacloudtech.com,wenbo.dou@gigacloudtech.com,chris.xu@gigacloudtech.com,uswarehouse@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,logistics@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,zhanghuiwen@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','业务类型,物流方式,CA2,CA3,CA4,CA5,CA6,CA7,CA8,CA9,CA10,CA11,CAL2,CAN1,CAN2,CAN3,NJ2,NJ3,NJ4,AT1,AT2,AT3,AT4,AT5,ATN1,TX1,CANADAH1,[ALL]','30 16 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select business_type,
+order by t.sort, t.business_type','【WOS-监控】美国仓库已发单数日报','larry_wu@gigacloudtech.com,haoxinyan@gigacloudtech.com,wanxin@gigacloudtech.com,wangyan@gigacloudtech.com,mabin@gigacloudtech.com,xukunming@gigacloudtech.com,lunjia.li@gigacloudtech.com,wang.xin@gigacloudtech.com,stella.tian@gigacloudtech.com','mingdi.zhang@gigacloudtech.com,lei.yan@gigacloudtech.com,wenbo.dou@gigacloudtech.com,chris.xu@gigacloudtech.com,uswarehouse@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,logistics@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,zhanghuiwen@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','业务类型,物流方式,CA2,CA3,CA4,CA5,CA6,CA7,CA8,CA9,CA10,CA11,CAL2,CAN1,CAN2,CAN3,NJ2,NJ3,NJ4,AT1,AT2,AT3,AT4,AT5,ATN1,TX1,CANADAH1,[ALL]','30 16 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select business_type,
        isnull(CarrierCode, '''') as Carrier,
        CA2,
        CA3,
@@ -1561,8 +1869,30 @@ from (SELECT wsv.sort,
                                                  and merge_date_time is not null)) t) t
                   group by t.warehouseCode, t.CarrierCode) t PIVOT (SUM(t.qty) FOR [WarehouseCode] IN ("CA2","CA3","CA4","CA5","CA6","CA7","CA8","CA9","CA10","CA11","CAL2","CAN1","CAN2","CAN3","NJ2","NJ3","NJ4","AT1","AT2","AT3","AT4","AT5","ATN1","TX1","CANADAH1")) AS T) wsv) t
 where t.business_type <> ''b2bcloudwh_sum''
-order by t.sort, t.business_type','【WOS-监控】【CA时间19点】美国仓库待发单统计','larry_wu@gigacloudtech.com,haoxinyan@gigacloudtech.com,wanxin@gigacloudtech.com,wangyan@gigacloudtech.com,mabin@gigacloudtech.com,xukunming@gigacloudtech.com,lunjia.li@gigacloudtech.com,wang.xin@gigacloudtech.com,stella.tian@gigacloudtech.com','mingdi.zhang@gigacloudtech.com,lei.yan@gigacloudtech.com,wenbo.dou@gigacloudtech.com,chris.xu@gigacloudtech.com,uswarehouse@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,logistics@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,zhanghuiwen@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','业务类型,物流方式,CA2,CA3,CA4,CA5,CA6,CA7,CA8,CA9,CA10,CA11,CAL2,CAN1,CAN2,CAN3,NJ2,NJ3,NJ4,AT1,AT2,AT3,AT4,AT5,ATN1,TX1,CANADAH1,[ALL]','15 19 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select business_type,
+order by t.sort, t.business_type','【WOS-监控】【CA时间19点】美国仓库待发单统计','larry_wu@gigacloudtech.com,haoxinyan@gigacloudtech.com,wanxin@gigacloudtech.com,wangyan@gigacloudtech.com,mabin@gigacloudtech.com,xukunming@gigacloudtech.com,lunjia.li@gigacloudtech.com,wang.xin@gigacloudtech.com,stella.tian@gigacloudtech.com','mingdi.zhang@gigacloudtech.com,lei.yan@gigacloudtech.com,wenbo.dou@gigacloudtech.com,chris.xu@gigacloudtech.com,uswarehouse@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,logistics@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,zhanghuiwen@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','业务类型,物流方式,CA2,CA3,CA4,CA5,CA6,CA7,CA8,CA9,CA10,CA11,CAL2,CAN1,CAN2,CAN3,NJ2,NJ3,NJ4,AT1,AT2,AT3,AT4,AT5,ATN1,TX1,CANADAH1,[ALL]','15 19 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select business_type,
        isnull(CarrierCode, '''') as Carrier,
        CA2,
        CA3,
@@ -2042,8 +2372,30 @@ from (SELECT wsv.sort,
                                                  and merge_date_time is not null)) t) t
                   group by t.warehouseCode, t.CarrierCode) t PIVOT (SUM(t.qty) FOR [WarehouseCode] IN ("CA2","CA3","CA4","CA5","CA6","CA7","CA8","CA9","CA10","CA11","CAL2","CAN1","CAN2","CAN3","NJ2","NJ3","NJ4","AT1","AT2","AT3","AT4","AT5","ATN1","TX1","CANADAH1")) AS T) wsv) t
 where t.business_type <> ''b2bcloudwh_sum''
-order by t.sort, t.business_type','【WOS-监控】【CA时间2点AM】美国仓库待发单统计','larry_wu@gigacloudtech.com,haoxinyan@gigacloudtech.com,wanxin@gigacloudtech.com,wangyan@gigacloudtech.com,mabin@gigacloudtech.com,xukunming@gigacloudtech.com,lunjia.li@gigacloudtech.com,wang.xin@gigacloudtech.com,stella.tian@gigacloudtech.com','mingdi.zhang@gigacloudtech.com,lei.yan@gigacloudtech.com,wenbo.dou@gigacloudtech.com,chris.xu@gigacloudtech.com,uswarehouse@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,logistics@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,zhanghuiwen@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','业务类型,物流方式,CA2,CA3,CA4,CA5,CA6,CA7,CA8,CA9,CA10,CA11,CAL2,CAN1,CAN2,CAN3,NJ2,NJ3,NJ4,AT1,AT2,AT3,AT4,AT5,ATN1,TX1,CANADAH1,[ALL]','15 2 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tsp.Description as description,
+order by t.sort, t.business_type','【WOS-监控】【CA时间2点AM】美国仓库待发单统计','larry_wu@gigacloudtech.com,haoxinyan@gigacloudtech.com,wanxin@gigacloudtech.com,wangyan@gigacloudtech.com,mabin@gigacloudtech.com,xukunming@gigacloudtech.com,lunjia.li@gigacloudtech.com,wang.xin@gigacloudtech.com,stella.tian@gigacloudtech.com','mingdi.zhang@gigacloudtech.com,lei.yan@gigacloudtech.com,wenbo.dou@gigacloudtech.com,chris.xu@gigacloudtech.com,uswarehouse@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,logistics@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,zhanghuiwen@gigacloudtech.com,xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','业务类型,物流方式,CA2,CA3,CA4,CA5,CA6,CA7,CA8,CA9,CA10,CA11,CAL2,CAN1,CAN2,CAN3,NJ2,NJ3,NJ4,AT1,AT2,AT3,AT4,AT5,ATN1,TX1,CANADAH1,[ALL]','15 2 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tsp.Description as description,
        tst.id          as tblSyncTaskId,
        tst.status      as status,
        tst.FileId      as fileId,
@@ -2053,9 +2405,53 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
     on tst.AuthKey = tsp.AuthKey
  where tsp.id = 8
    and tst.STATUS = 3
-   and tst.CreateTime > getdate()-1','【WOS-监控】【监测】中间件接口同步失败','liuchao@gigacloudtech.com','xiafei@gigacloudtech.com,liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','description,tblSyncTaskId,status,fileId,errMsg','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select t.OrderId,t.PO,t.Line from tblWalmartOrderTemp t group by t.OrderId,t.PO,t.Line having count(*)>1','【WOS-监控】[重要]Walmart临时表订单重复报警','liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','OrderId,Po,line','50 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('-- fedex
+   and tst.CreateTime > getdate()-1','【WOS-监控】【监测】中间件接口同步失败','liuchao@gigacloudtech.com','xiafei@gigacloudtech.com,liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','description,tblSyncTaskId,status,fileId,errMsg','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select t.OrderId,t.PO,t.Line from tblWalmartOrderTemp t group by t.OrderId,t.PO,t.Line having count(*)>1','【WOS-监控】[重要]Walmart临时表订单重复报警','liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','OrderId,Po,line','50 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>刘超,閤飞</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('-- fedex
 -- 上门取货买单
 select N''上门取货买单FedEx'',
        tc.sales_order_number,
@@ -2216,8 +2612,30 @@ where tc.create_date_time > getdate() - 1
   and tc.warehouse_id != 66
   and tc.store_id = 199
   and (mw.upsCarrierId != tf.carrier_id or tf.shipper_type = ''Comptree'' or tf.pay_account_number is null
-    )','DRP系统买单账号使用异常统计','liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com,xiafei@gigacloudtech.com,chenhuizhu@gigacloudtech.com','买单类型,订单号,运单号,仓库id,仓库code,付款类型,实际使用的付款账号,应该使用的付款账号,实际使用的CarrierId,应该使用的CarrierId','10 4,12,20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select toi.sales_order_number,
+    )','DRP系统买单账号使用异常统计','liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com,xiafei@gigacloudtech.com,chenhuizhu@gigacloudtech.com','买单类型,订单号,运单号,仓库id,仓库code,付款类型,实际使用的付款账号,应该使用的付款账号,实际使用的CarrierId,应该使用的CarrierId','10 4,12,20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select toi.sales_order_number,
        tor.OrderID,
        toi.create_date_time,
        case when toi.deal_type = 1 then N''取消'' else N''拦截'' end       as dealType,
@@ -2230,8 +2648,30 @@ from tbl_order_intercept toi with (nolock)
          left join tblOrderStatus tos with (nolock) on tos.OrderStatusID = tor.OrderStatus
 where toi.data_source = ''B2B''
   and toi.feedback_status = 2
-  and toi.create_date_time > DATEADD(HOUR, -1, GETDATE())','【DRP监控】B2B取消/拦截接口返回失败','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','drp_us_it@gigacloudtech.com','销售订单号,系统订单号,申请取消/拦截时间,操作类型,订单状态,B2B返回结果,B2B返回失败的msg','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('SELECT t.sales_order_number, t.sku
+  and toi.create_date_time > DATEADD(HOUR, -1, GETDATE())','【DRP监控】B2B取消/拦截接口返回失败','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','drp_us_it@gigacloudtech.com','销售订单号,系统订单号,申请取消/拦截时间,操作类型,订单状态,B2B返回结果,B2B返回失败的msg','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('SELECT t.sales_order_number, t.sku
 FROM (SELECT store_id, sales_order_number, toid.item_code sku, SUM(toid.item_qty) AS intercept_qty
       FROM tbl_order_intercept toi with (nolock)
                inner join tbl_order_intercept_detail toid with (nolock) on toi.id = toid.intercept_id
@@ -2258,8 +2698,30 @@ FROM (SELECT store_id, sales_order_number, toid.item_code sku, SUM(toid.item_qty
                where tor.createDate > DATEADD(HOUR, -4, GETDATE())
                GROUP BY tor.storeId, tor.OrderID, tor.sku) AS f
               ON t.store_id = f.store_id AND t.sales_order_number = f.sales_order_number AND t.sku = f.sku
-WHERE t.temp_qty <> f.yzc_qty','【DRP监控】订单统一临时表与B2B临时表明细数量不一致监控','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com,liniannian@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,Item Code','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('SELECT t.sales_order_number, t.sku
+WHERE t.temp_qty <> f.yzc_qty','【DRP监控】订单统一临时表与B2B临时表明细数量不一致监控','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com,liniannian@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,Item Code','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('SELECT t.sales_order_number, t.sku
 FROM (SELECT store_id, sales_order_number, toid.item_code + ''-001'' sku, SUM(toid.item_qty) AS intercept_qty
       FROM tbl_order_intercept toi with (nolock)
                inner join tbl_order_intercept_detail toid with (nolock) on toi.id = toid.intercept_id
@@ -2282,8 +2744,30 @@ FROM (SELECT store_id, sales_order_number, toid.item_code + ''-001'' sku, SUM(to
                where tor.createDate > DATEADD(HOUR, -6, GETDATE())
                GROUP BY tor.storeId, tor.PayPalTxID, tod.ItemCode) AS f
               ON t.store_id = f.store_id AND t.sales_order_number = f.sales_order_number AND t.sku = f.sku
-WHERE t.temp_qty <> f.formal_qty','【DRP监控】订单正式表与统一临时表明细数量不一致监控','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com,liniannian@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,Item Code','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select ts.DisplayName                                                                               ''店铺名'',
+WHERE t.temp_qty <> f.formal_qty','【DRP监控】订单正式表与统一临时表明细数量不一致监控','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com,liniannian@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,Item Code','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select ts.DisplayName                                                                               ''店铺名'',
        tblo.PayPalTxID                                                                              ''销售订单号'',
        twe.warehouseCode,
        case tbls.Carrier when 1 then ''UPS'' when 3 then ''FEDEX'' when 7 then ''TRUCK'' else null end as ''Carrier'',
@@ -2312,14 +2796,58 @@ where tbls.AssignedTo in (78, 80, 88, 90, 92, 94, 98, 100, 102, 104, 106, 108, 1
   and tblo.createDate > getdate() - 30
   and tbls.CreationDate < GETDATE() - 3
   and tcsf.tracking_number is not null
-order by twe.warehouseCode, ts.shipping_fee_type, tblo.createDate, tblo.PayPalTxID','【DRP-监控】合作仓订单超3天未推送','liuchao@gigacloudtech.com,shishanshan@gigacloudtech.com','sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,chenkailiang@gigacloudtech.com','店铺名,销售订单号,仓库,物流,订单状态,ItemSatus,ItemCode,运单号,数量,订单进系统时间,类型','0 4,12,20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct
+order by twe.warehouseCode, ts.shipping_fee_type, tblo.createDate, tblo.PayPalTxID','【DRP-监控】合作仓订单超3天未推送','liuchao@gigacloudtech.com,shishanshan@gigacloudtech.com','sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,chenkailiang@gigacloudtech.com','店铺名,销售订单号,仓库,物流,订单状态,ItemSatus,ItemCode,运单号,数量,订单进系统时间,类型','0 2,10,18 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>石珊珊,刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct
                        ta.sales_order_number
                    from tbl_item_code_attachment ta with(nolock)
                             join tblorders tblo with(nolock) on ta.sales_order_number=tblo.PayPalTxID
                    where  tblo.OrderStatus  = 2 and tblo.createDate>''2021-07-08 02:06:14.107''
-                     and ta.carrier_service_level_code like ''%Overnight%'' and tblo.storeid in(205,212,276,277)','Being Process的Overnight订单','pingtaikefu@gigacloudtech.com','songyinghui@gigacloudtech.com,chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,chenhuizhu@gigacloudtech.com','订单号','0 20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.OrdersFrom,
+                     and ta.carrier_service_level_code like ''%Overnight%'' and tblo.storeid in(205,212,276,277)','Being Process的Overnight订单','pingtaikefu@gigacloudtech.com','songyinghui@gigacloudtech.com,chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,chenhuizhu@gigacloudtech.com','订单号','0 20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>平台客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.OrdersFrom,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        ''Buy Fedex Label''                           AS workname,
@@ -2414,8 +2942,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (1,23)
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
   and isnull(tbs.isInvoicePrinted, 0) <> 1
-group by tse.OrdersFrom, tul.orderId, tul.errmessage, toss.OrderStatus','【B2B-监控】【重要】FedEx、UPS、Amazon Buy Label 失败','pingtaikefu@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('    select t.DisplayName                          "StoreName",
+group by tse.OrdersFrom, tul.orderId, tul.errmessage, toss.OrderStatus','【B2B-监控】【重要】FedEx、UPS、Amazon Buy Label 失败','pingtaikefu@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>B2B客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('    select t.DisplayName                          "StoreName",
                               t.warehouseCode                        "仓库CODE",
                               t.PayPalTxID                           "销售订单号",
                               t.createDate                           "订单进入系统的时间",
@@ -2465,14 +3015,58 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
                                       tbwe.warehouseCode,
                                      tbls.AssignedTo,
                                       tbls.ServiceLevel) t
-                       order by t.createDate DESC','【DRP-监控】B2B LTL长期未发单','pingtaikefu@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,wuyating@gigacloudtech.com,lunjia.li@gigacloudtech.com,logistics@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','StoreName,仓库Code,销售订单号,订单进入系统的时间,仓库备货时间,itemcode,qty,orderstatus,卡车公司','0 19 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct
+                       order by t.createDate DESC','【DRP-监控】B2B LTL长期未发单','pingtaikefu@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,wuyating@gigacloudtech.com,lunjia.li@gigacloudtech.com,logistics@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','StoreName,仓库Code,销售订单号,订单进入系统的时间,仓库备货时间,itemcode,qty,orderstatus,卡车公司','0 19 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>B2B平台客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct
                                          ta.sales_order_number
                                      from tbl_item_code_attachment ta with(nolock)
                                               join tblorders tblo with(nolock) on ta.sales_order_number=tblo.PayPalTxID
                                      where  tblo.OrderStatus  = 2 and tblo.createDate>''2022-11-01 00:00:00.000''
-                                       and ta.carrier_service_level_code like ''%Overnight%'' and tblo.storeid in(208);','Being Process的Overnight订单','shishanshan@gigacloudtech.com','songyinghui@gigacloudtech.com,chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,chenhuizhu@gigacloudtech.com','订单号','0 20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tblw.WarehouseCode                 ''From'',
+                                       and ta.carrier_service_level_code like ''%Overnight%'' and tblo.storeid in(208);','Being Process的Overnight订单','shishanshan@gigacloudtech.com','songyinghui@gigacloudtech.com,chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,chenhuizhu@gigacloudtech.com','订单号','0 20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>石珊珊</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tblw.WarehouseCode                 ''From'',
        ''YiCang''                           ''To'',
        case tul.programCode
            when ''1111'' then ''Fail''
@@ -2498,8 +3092,30 @@ where tul.hisId in (select top 2 header.hisId
   and tul.ERRMESSAGE not like ''%no shipment label%''
   and tul.ERRMESSAGE not like ''%serviceType is null%''
   and tul.programCode != ''0000''
-order by tul.programCode desc, tuh.CREATIONDATE desc','【DRP-监控】【重要】外部仓库（易仓）对接订单异常','shishanshan@gigacloudtech.com,shenling@gigacloudtech.com','drp_us_it@gigacloudtech.com,pingtaikefu@gigacloudtech.com','From,To,Result,PayPalTxId,ShipmentId,Message,CreationDate','45 21 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tblw.WarehouseCode                 ''From'',
+order by tul.programCode desc, tuh.CREATIONDATE desc','【DRP-监控】【重要】外部仓库（易仓）对接订单异常','shishanshan@gigacloudtech.com,shenling@gigacloudtech.com','drp_us_it@gigacloudtech.com,pingtaikefu@gigacloudtech.com','From,To,Result,PayPalTxId,ShipmentId,Message,CreationDate','45 21 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>陈开亮</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tblw.WarehouseCode                 ''From'',
        ''YiCang''                           ''To'',
        case tul.programCode
            when ''1111'' then ''Fail''
@@ -2524,10 +3140,54 @@ where tul.hisId in (select top 1 header.hisId
   and tul.ERRMESSAGE not like ''%no shipment label%''
   and tul.ERRMESSAGE not like ''%serviceType is null%''
   and tul.programCode != ''0000''
-order by tul.programCode desc, tuh.CREATIONDATE desc','【DRP-监控】【重要】ATX4仓库（易仓）对接订单异常','shishanshan@gigacloudtech.com,shenling@gigacloudtech.com,liuchao@gigacloudtech.com','drp_us_it@gigacloudtech.com,pingtaikefu@gigacloudtech.com','From,To,Result,PayPalTxId,ShipmentId,Message,CreationDate','45 21 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES (' select  dealtime,workname,WORKCOUNT,OKCOUNT
-from tuslogheader with(nolock) where workStatus in (2,4) and  (worktype in (49,51,52,53,58) or (WORKTYPE = 26 and storeid = 226)) ','【WOS-监控】【重要】云送仓接口调用异常','songyinghui@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenkailiang@gigacloudtech.com','dealTime,workName,workCount,okCount','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select ROW_NUMBER() OVER (ORDER BY temp.sales_order_number) as "No.",
+order by tul.programCode desc, tuh.CREATIONDATE desc','【DRP-监控】【重要】ATX4仓库（易仓）对接订单异常','shishanshan@gigacloudtech.com,shenling@gigacloudtech.com,liuchao@gigacloudtech.com','drp_us_it@gigacloudtech.com,pingtaikefu@gigacloudtech.com','From,To,Result,PayPalTxId,ShipmentId,Message,CreationDate','45 21 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>陈开亮</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES (' select  dealtime,workname,WORKCOUNT,OKCOUNT
+from tuslogheader with(nolock) where workStatus in (2,4) and  (worktype in (49,51,52,53,58) or (WORKTYPE = 26 and storeid = 226)) ','【WOS-监控】【重要】云送仓接口调用异常','songyinghui@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenkailiang@gigacloudtech.com','dealTime,workName,workCount,okCount','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>刘超</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select ROW_NUMBER() OVER (ORDER BY temp.sales_order_number) as "No.",
        temp.sales_order_number                              as "Sales Order Number",
        temp.ServiceLevel                                    as "Truck",
        temp.warehouseCode                                   as "Warehouse",
@@ -2553,8 +3213,30 @@ from (select teso.sales_order_number,
                          and teso1.shipping_status in (4, 5)
                          and teso1.carrier_service_level_id = teso.carrier_service_level_id
                          and teso1.warehouse_id = teso.warehouse_id)
-        and tbo.OrderStatus not in (16, 32)) temp','【DRP-监控】卡车备货异常监控','songyinghui@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','chenkailiang@gigacloudtech.com,chenhuizhu@gigacloudtech.com,liuchao@gigacloudtech.com,linda.xie@gigacloudtech.com','NO.,Sales Order Number,Truck,Warehouse,Reason','0 19 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct tor.PayPalTxID     ''销售订单号'',
+        and tbo.OrderStatus not in (16, 32)) temp','【DRP-监控】卡车备货异常监控','songyinghui@gigacloudtech.com,shishanshan@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','chenkailiang@gigacloudtech.com,chenhuizhu@gigacloudtech.com,liuchao@gigacloudtech.com,linda.xie@gigacloudtech.com','NO.,Sales Order Number,Truck,Warehouse,Reason','0 19 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>石珊珊</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select distinct tor.PayPalTxID     ''销售订单号'',
                                                       thi.item_code      ''冻结SKU'',
                                                       tse.warehouseCode ''冻结仓库'',
                                                       thi.qty            ''冻结库存'',
@@ -2566,8 +3248,30 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
                                       where tor.createDate > getdate() -30
                                         and tor.createDate < getdate() -0.1
                                         and tor.OrderStatus = 1
-                                      order by tor.createDate DESC','new order订单有冻结库存','songyinghui@gigacloudtech.com,zhangyumeng@gigacloudtech.com,chengguangkuo@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com','销售订单号,冻结SKU,冻结仓库,冻结库存,订单创建时间','10 2 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tbo.PayPalTxID,
+                                      order by tor.createDate DESC','new order订单有冻结库存','songyinghui@gigacloudtech.com,zhangyumeng@gigacloudtech.com,chengguangkuo@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com','销售订单号,冻结SKU,冻结仓库,冻结库存,订单创建时间','10 2 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>程广阔</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tbo.PayPalTxID,
        tbs.DisplayName,
        tos.OrderStatus,
        FORMAT(tbo.OrderDate, ''yyyy-MM-dd HH:mm:ss'')  as orderDate,
@@ -2584,8 +3288,30 @@ where tbo.createDate >= getdate() - 5
                       318, 319, 320,
                       321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338,
                       339, 340, 341,
-                      342, 343, 344, 345, 346, 347, 348)','【DRP-监控】创建时间最近但是订单很早之前下单的订单','stella.cui@gigacloudtech.com,bonnie.lin@gigacloudtech.com','liuchao@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com','销售订单号,店铺,订单状态,订单时间,创建时间','15 2,8,14,20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('    select t.DisplayName                          "StoreName",
+                      342, 343, 344, 345, 346, 347, 348)','【DRP-监控】创建时间最近但是订单很早之前下单的订单','stella.cui@gigacloudtech.com,bonnie.lin@gigacloudtech.com','liuchao@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com','销售订单号,店铺,订单状态,订单时间,创建时间','15 2,8,14,20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('    select t.DisplayName                          "StoreName",
                                                                     t.warehouseCode                        "仓库CODE",
                                                                     t.PayPalTxID                           "销售订单号",
                                                                     t.createDate                           "订单进入系统的时间",
@@ -2673,8 +3399,30 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
                                                                             tbls.AssignedTo,
                                                                             tbls.ServiceLevel
                                                                    ) t
-                                                             order by t.createDate DESC ','【DRP-监控】自营 LTL长期未发单','suzhou_CSR@gigacloudtech.com,salesreport@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,wuyating@gigacloudtech.com,lunjia.li@gigacloudtech.com,logistics@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','StoreName,仓库Code,销售订单号,订单进入系统的时间,仓库备货时间,itemcode,qty,orderstatus,卡车公司','0 19 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select t.DisplayName                          "StoreName",
+                                                             order by t.createDate DESC ','【DRP-监控】自营 LTL长期未发单','suzhou_CSR@gigacloudtech.com,salesreport@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,wuyating@gigacloudtech.com,lunjia.li@gigacloudtech.com,logistics@gigacloudtech.com','liuchao@gigacloudtech.com,chenkailiang@gigacloudtech.com','StoreName,仓库Code,销售订单号,订单进入系统的时间,仓库备货时间,itemcode,qty,orderstatus,卡车公司','0 19 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>苏州客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select t.DisplayName                          "StoreName",
                                                  t.warehouseCode                        "仓库CODE",
                                                  t.PayPalTxID                           "销售订单号",
                                                  t.createDate                           "订单进入系统的时间",
@@ -2726,8 +3474,30 @@ INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,m
                                                          tbls.AssignedTo,
                                                          tbls.ServiceLevel
                                                 ) t
-                                          order by t.createDate DESC','【DRP-监控】3PL LTL长期未发单','suzhou_CSR@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,wuyating@gigacloudtech.com,lunjia.li@gigacloudtech.com,csr_giga@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com','StoreName,仓库Code,销售订单号,订单进入系统的时间,仓库备货时间,itemcode,qty,orderstatus,卡车公司','0 19 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select temp.DisplayName as "From",
+                                          order by t.createDate DESC','【DRP-监控】3PL LTL长期未发单','suzhou_CSR@gigacloudtech.com,uswhcoordinator@gigacloudtech.com,wuyating@gigacloudtech.com,lunjia.li@gigacloudtech.com,csr_giga@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com','StoreName,仓库Code,销售订单号,订单进入系统的时间,仓库备货时间,itemcode,qty,orderstatus,卡车公司','0 19 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>3PL客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select temp.DisplayName as "From",
        temp.ORDERID     as "OrderId",
        temp.dealTime    as "DealTime",
        temp.workname    as "WorkName",
@@ -2822,8 +3592,30 @@ from (select tse.StoreID,
         and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
       group by tse.StoreID, tse.DisplayName, tul.orderId, tul.errmessage, tbo.OrderStatus) temp
          inner join tblOrderStatus toss with (nolock) on toss.OrderStatusID = temp.OrderStatus
-order by temp.StoreID','FedEx、UPS、Amazon Buy Label失败','US_yunying@gigacloudtech.com,suzhou_csr@gigacloudtech.com','chenhuizhu@gigacloudtech.com,liuchao@gigacloudtech.com,songyinghui@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com,yuebeibei@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','From,OrderId（销售订单号）,DealTime,WorkName,Info,OrderStatus','0 2,8,14,20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select twe.warehouseCode                 as ''仓库code'',
+order by temp.StoreID','FedEx、UPS、Amazon Buy Label失败','US_yunying@gigacloudtech.com,suzhou_csr@gigacloudtech.com','chenhuizhu@gigacloudtech.com,liuchao@gigacloudtech.com,songyinghui@gigacloudtech.com,sujiawei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com,yuebeibei@gigacloudtech.com,uswhcoordinator@gigacloudtech.com','From,OrderId（销售订单号）,DealTime,WorkName,Info,OrderStatus','0 2,8,14,20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>美国客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select twe.warehouseCode                 as ''仓库code'',
        tbo.PayPalTxID                    as ''销售订单号'',
        tbo.OrderID                       as ''系统订单号'',
        case
@@ -2848,8 +3640,30 @@ where tbs.AssignedTo in (78, 80, 88, 90, 92, 94, 98, 100, 102, 104, 106, 108, 11
   and totat.operation_type = 13
   and totat.change_to = ''Shipping''
   and totat.created_date_time < getdate() - 3
-order by twe.warehouseCode,totat.created_date_time asc','【DRP-监控】合作仓库超过3天未发货订单','uswhcoordinator@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenhuizhu@gigacloudtech.com,shishuwen@gigacloudtech.com,wanyuanqi@gigacloudtech.com,yuebeibei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com','仓库code,销售订单号,系统订单号,订单类型,运单号,Item code,订单推送日期,类型','0 2 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('SELECT IIF(tse.shipping_fee_type = ''pick_up_account_buy_fee'' OR tse.shipping_fee_type = ''pick_up_buyer_upload_fee'',
+order by twe.warehouseCode,totat.created_date_time asc','【DRP-监控】合作仓库超过3天未发货订单','uswhcoordinator@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenhuizhu@gigacloudtech.com,shishuwen@gigacloudtech.com,wanyuanqi@gigacloudtech.com,yuebeibei@gigacloudtech.com,zhaijianfeng@gigacloudtech.com','仓库code,销售订单号,系统订单号,订单类型,运单号,Item code,订单推送日期,类型','0 2 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>仓库联络员</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('SELECT IIF(tse.shipping_fee_type = ''pick_up_account_buy_fee'' OR tse.shipping_fee_type = ''pick_up_buyer_upload_fee'',
            N''上门取货'', N''一件代发'') AS ''订单类型'',
        ''UPS''                         AS ''物流公司'',
        ''UPS Roadie Ground''           AS ''物流服务'',
@@ -2874,8 +3688,30 @@ WHERE ts.servicelevel = ''UPS Roadie Ground''
         DAY(GETDATE()),
         15, 0, 0, 0)
 GROUP BY IIF(tse.shipping_fee_type = ''pick_up_account_buy_fee'' OR tse.shipping_fee_type = ''pick_up_buyer_upload_fee'',
-             N''上门取货'', N''一件代发''), twe.warehousecode','【US_DRP】24小时内Roadie买单成功的发货单量统计','wuyating@gigacloudtech.com,wang.xin@gigacloudtech.com','chenkailiang@gigacloudtech.com,aojieying@gigacloudtech.com,chenhuizhu@gigacloudtech.com,xiafei@gigacloudtech.com,chen-lin@gigacloudtech.com,melissal@gigacloudtech.com,wangyan_2@gigacloudtech.com,yuebeibei@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,lunjia.li@gigacloudtech.com,xuyifan@gigacloudtech.com','类型,物流公司,物流服务,仓库,发货单量总数','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tbo.from_system,
+             N''上门取货'', N''一件代发''), twe.warehousecode','【US_DRP】24小时内Roadie买单成功的发货单量统计','wuyating@gigacloudtech.com,wang.xin@gigacloudtech.com','chenkailiang@gigacloudtech.com,aojieying@gigacloudtech.com,chenhuizhu@gigacloudtech.com,xiafei@gigacloudtech.com,chen-lin@gigacloudtech.com,melissal@gigacloudtech.com,wangyan_2@gigacloudtech.com,yuebeibei@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,lunjia.li@gigacloudtech.com,xuyifan@gigacloudtech.com','类型,物流公司,物流服务,仓库,发货单量总数','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tbo.from_system,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        tul.errmessage,
@@ -2896,8 +3732,30 @@ where tul.worktype in (44)
   and tul.workstatus IN (0, 2, 4)
 and tul.hislineid >208773619
 group by tbo.from_system, tul.orderId, tul.errmessage, toss.OrderStatus
-ORDER BY max(convert(varchar, tul.creationdate, 20))','【US_DRP】UPS Roadie Buy Label 失败','wuyating@gigacloudtech.com,wang.xin@gigacloudtech.com,lishuai02@gigacloudtech.com,yanglina@gigacloudtech.com','chenkailiang@gigacloudtech.com,aojieying@gigacloudtech.com,chenhuizhu@gigacloudtech.com,xiafei@gigacloudtech.com,chen-lin@gigacloudtech.com,melissal@gigacloudtech.com,wangyan_2@gigacloudtech.com,yuebeibei@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,lunjia.li@gigacloudtech.com,xuyifan@gigacloudtech.com','From,OrderId,Last Buy Label Time,Error Message,OrderStatus','0 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select toi.sales_order_number,
+ORDER BY max(convert(varchar, tul.creationdate, 20))','【US_DRP】UPS Roadie Buy Label 失败','wuyating@gigacloudtech.com,wang.xin@gigacloudtech.com,lishuai02@gigacloudtech.com,yanglina@gigacloudtech.com','chenkailiang@gigacloudtech.com,aojieying@gigacloudtech.com,chenhuizhu@gigacloudtech.com,xiafei@gigacloudtech.com,chen-lin@gigacloudtech.com,melissal@gigacloudtech.com,wangyan_2@gigacloudtech.com,yuebeibei@gigacloudtech.com,yuanwen@gigacloudtech.com,zhanghanlin@gigacloudtech.com,lunjia.li@gigacloudtech.com,xuyifan@gigacloudtech.com','From,OrderId,Last Buy Label Time,Error Message,OrderStatus','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select toi.sales_order_number,
        tor.OrderID,
        convert(varchar(100), toi.create_date_time, 120),
        tos.OrderStatus
@@ -2910,8 +3768,30 @@ where toi.create_date_time > DATEADD(HOUR, -1, GETDATE())
   and (
         toi.deal_date_time is null or toi.feedback_date_time is null or
         DATEDIFF(SECOND, toi.create_date_time, toi.feedback_date_time) > 15
-    )','【取消超时】B2B调用DRP取消接口超时','xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,系统订单号,申请取消时间,订单状态','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select toi.sales_order_number,
+    )','【取消超时】B2B调用DRP取消接口超时','xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,系统订单号,申请取消时间,订单状态','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select toi.sales_order_number,
        tor.OrderID,
        convert(varchar(100), toi.create_date_time, 120),
        case
@@ -2927,8 +3807,30 @@ from tbl_order_intercept toi with (nolock)
                     on toi.store_id = tor.StoreID and toi.sales_order_number = tor.PayPalTxID
          left join tblOrderStatus tos on tos.OrderStatusID = tor.OrderStatus
 where toi.create_date_time > DATEADD(HOUR, -1, GETDATE())
-  and toi.memo like N''%失败%''','【DRP-监控】B2B取消/拦截接口返回失败','xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,系统订单号,申请取消/拦截时间,操作类型,订单状态,B2B返回结果,B2B返回失败的msg','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select twe.warehouseCode,
+  and toi.memo like N''%失败%''','【DRP-监控】B2B取消/拦截接口返回失败','xiafei@gigacloudtech.com,liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','销售订单号,系统订单号,申请取消/拦截时间,操作类型,订单状态,B2B返回结果,B2B返回失败的msg','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select twe.warehouseCode,
        tse.DisplayName,
        tos.PayPalTxID,
        toss.OrderStatus,
@@ -2947,8 +3849,30 @@ group by twe.warehouseCode,
          tos.PayPalTxID,
          toss.OrderStatus,
          tod.ItemCode,
-         tos.createDate','【DRP监控】Purolator快递订单数据统计','yanglina@gigacloudtech.com,wuyating@gigacloudtech.com,xukunming@gigacloudtech.com,wang.xin@gigacloudtech.com','drp_us_it@gigacloudtech.com','仓库code,店铺名称,销售订单号,订单状态,Item Code,订单导入时间','0 0 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.OrdersFrom,
+         tos.createDate','【DRP监控】Purolator快递订单数据统计','yanglina@gigacloudtech.com,wuyating@gigacloudtech.com,xukunming@gigacloudtech.com,wang.xin@gigacloudtech.com','drp_us_it@gigacloudtech.com','仓库code,店铺名称,销售订单号,订单状态,Item Code,订单导入时间','0 0 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>美国仓库联络员</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.OrdersFrom,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
        case
@@ -3019,8 +3943,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (1, 23)
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
   and isnull(tbs.isInvoicePrinted, 0) <> 1
-group by tse.OrdersFrom, tul.orderId, tul.errmessage, toss.OrderStatus','新【B2B-监控】【重要】FedEx、UPS、Amazon Buy Label 失败','zhaijianfeng@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,shiyuanyuan@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tbll.sales_order_number,
+group by tse.OrdersFrom, tul.orderId, tul.errmessage, toss.OrderStatus','新【B2B-监控】【重要】FedEx、UPS、Amazon Buy Label 失败','zhaijianfeng@gigacloudtech.com','chenkailiang@gigacloudtech.com,liuchao@gigacloudtech.com,shiyuanyuan@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>B2B客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tbll.sales_order_number,
        case
            when tbll.carrier_id = 3 then N''FEDEX BUY LABEL失败''
            when tbll.carrier_id = 1 then N''UPS BUY LABEL失败''
@@ -3073,8 +4019,30 @@ where tul.worktype in (19)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
 group by tul.orderId, tul.errmessage, tod.ItemCode','新【WOS-监控】大健云buy label失败
-','zhaijianfeng@gigacloudtech.com','liuchao@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com','订单号,label类型,错误信息,SKU','3 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.StoreID,
+','zhaijianfeng@gigacloudtech.com','liuchao@gigacloudtech.com,zhaijianfeng@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com','订单号,label类型,错误信息,SKU','3 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''></font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select tse.StoreID,
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3136,8 +4104,30 @@ where tul.worktype in (19)
        321, 322, 323, 324, 325, 326, 327, 328, 329, 330, 331, 332, 333, 334, 335, 336, 337, 338, 339, 340, 341,
        342, 343, 344, 345, 346, 347, 348)
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.StoreID, tse.DisplayName, tul.orderId, tul.errmessage, tbo.OrderStatus','新FedEx、UPS、Amazon Buy Label失败','zhaijianfeng@gigacloudtech.com','liuchao@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com','From,OrderId（销售订单号）,DealTime,WorkName,Info,OrderStatus','0 2,8,14,20 * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+group by tse.StoreID, tse.DisplayName, tul.orderId, tul.errmessage, tbo.OrderStatus','新FedEx、UPS、Amazon Buy Label失败','zhaijianfeng@gigacloudtech.com','liuchao@gigacloudtech.com,liniannian@gigacloudtech.com,shiyuanyuan@gigacloudtech.com,chenkailiang@gigacloudtech.com','From,OrderId（销售订单号）,DealTime,WorkName,Info,OrderStatus','0 2,8,14,20 * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>美国客服</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3188,8 +4178,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新204【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新204【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3240,8 +4252,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新205【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新205【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3292,8 +4326,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新206【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新206【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3344,8 +4400,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新207【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新207【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3396,8 +4474,30 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新208【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
-INSERT INTO sys_monitor_config_1 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新208【Noble监控】【重要】FedEx、UPS Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')
+INSERT INTO sys_monitor_config_2 (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3448,4 +4548,26 @@ where tul.worktype in (19)
   and DATEPART(hour, getdate()) in (23, 0, 1)
   and isnull(tbs.isInvoicePrinted, 0) <> 1
   and tul.ERRMESSAGE not like N''message:The service is currently unavailable%''
-group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新209【Noble监控】【重要】FedEx、UPS、Amazon Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','')
+group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','新209【Noble监控】【重要】FedEx、UPS、Amazon Buy Label 失败 - DRP','zhaijianfeng@gigacloudtech.com','drp_us_it@gigacloudtech.com','From,OrderId,DealTime,WorkName,Info,OrderStatus','10 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size=''2'' style=''text-align: center;''>NH店铺</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>监控</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>是</font>
+        </td>
+        <td>
+            <font size=''2'' style=''text-align: center;''>否</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{splicingTableStr}')

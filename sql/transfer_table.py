@@ -47,18 +47,50 @@ def datetime_to_cron(row):
     dt = datetime.strptime(row["NextExecuteDate"], date_format)
 
     cron = None
-    cycle_time = row["cycleTime"]
-    if cycle_time == 1 or cycle_time == "1":
+    cycle_time = int(row["cycleTime"])
+    if cycle_time == 1:
         cron = f"{dt.minute} * * * *"
-    elif cycle_time == 24 or cycle_time == "24":
+    elif cycle_time == 24:
         cron = f"{dt.minute} {dt.hour} * * *"
-    elif cycle_time == 8 or cycle_time == "8":
-        cron = f"{dt.minute} 4,12,20 * * *"
-    elif cycle_time == 6 or cycle_time == "6":
-        cron = f"{dt.minute} 2,8,14,20 * * *"
+    elif cycle_time == 8:
+        cron_hour = ",".join([str((dt.hour + i * cycle_time) % 24) for i in range(3)])
+        cron = f"{dt.minute} {cron_hour} * * *"
+    elif cycle_time == 6:
+        cron_hour = ",".join([str((dt.hour + i * cycle_time) % 24) for i in range(4)])
+        cron = f"{dt.minute} {cron_hour} * * *"
     else:
         raise ValueError(f"Unknown cycleTime: {cycle_time} type: {type(cycle_time)}")
     return cron
+
+
+def bulid_template(row):
+    charge = row["inCharge"]
+    need_deal = "是" if row["isNeedDeal"] == "true" else "否"
+    need_reply = "是" if row["isNeedReply"] == "true" else "否"
+    template = f"""<table border='1' cellpadding='1' cellspacing='0' align='center'>
+    <tr>
+        <th>负责人</th>
+        <th>用途</th>
+        <th>是否需要处理</th>
+        <th>是否需要回复</th>
+    </tr>
+    <tr>
+        <td>
+            <font size='2' style='text-align: center;'>{charge}</font>
+        </td>
+        <td>
+            <font size='2' style='text-align: center;'>监控</font>
+        </td>
+        <td>
+            <font size='2' style='text-align: center;'>{need_deal}</font>
+        </td>
+        <td>
+            <font size='2' style='text-align: center;'>{need_reply}</font>
+        </td>
+    </tr>
+</table><br /><br /><br />
+{{splicingTableStr}}"""
+    return template
 
 
 mappings = {
@@ -68,12 +100,13 @@ mappings = {
     "monitor_cc": lambda row: row["ccbox"],
     "monitor_table_field": concat_fields,
     "cron": datetime_to_cron,
+    "monitor_text_template": bulid_template,
 }
 
 
 from_table = rfile(r"tusTaskReminds.csv", type="csv")
 defaults = {"monitor_text_template": ""}
-sql_list = generate_sql("sys_monitor_config_1", mappings, defaults, from_table)
+sql_list = generate_sql("sys_monitor_config_2", mappings, defaults, from_table)
 wfile("result.sql", sql_list, type="list")
 
 print("from_table:", len(from_table))
