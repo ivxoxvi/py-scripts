@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
-sys.path.append(str(Path(__file__).parent.parent))
+sys.path.append(str(Path(__file__).parent.parent.parent))
 from util.rwFile import rfile, wfile
 
 
