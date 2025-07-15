@@ -101,12 +101,13 @@ mappings = {
     "monitor_table_field": concat_fields,
     "cron": datetime_to_cron,
     "monitor_text_template": bulid_template,
+    "send_type": lambda row: "email",
 }
 
 
 from_table = rfile(r"tusTaskReminds.csv", type="csv")
 defaults = {"monitor_text_template": ""}
-sql_list = generate_sql("sys_monitor_config_2", mappings, defaults, from_table)
+sql_list = generate_sql("sys_monitor_config", mappings, defaults, from_table)
 wfile("result.sql", sql_list, type="list")
 
 print("from_table:", len(from_table))

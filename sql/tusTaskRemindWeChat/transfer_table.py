@@ -64,22 +64,23 @@ def hours_to_cron(row):
         
     cron_list[1] = ",".join(hour.strip() for hour in hour_part if hour in time_zones)
     cron = " ".join(cron_list)
-    print("cron:", len(cron.split(" ")), cron)
+    if len(cron.split(" ")) != 5:
+        raise ValueError(f"Invalid cron format: {cron}")
     return cron
 
 
 def bulid_template(row):
     format = int(row["format"])
     if format == 1:
-        return "(SFP)异常订单<br>数量：{amount},<br>订单号：<br>{list}"
+        return "(SFP)异常订单<br>数量：{amount},<br>订单号：<br>{splicingTableStr}"
     elif format == 2:
-        return "WOS Log Warning：{amount},<br>{list}"
+        return "WOS Log Warning：{amount},<br>{splicingTableStr}"
     elif format == 3:
         subject = row["subject"]
-        return f"{subject}<br>{{list}}"
+        return f"{subject}<br>{{splicingTableStr}}"
     else:
         subject = row["subject"]
-        return f"{subject}"
+        return f"{subject}" + "<br>{splicingTableStr}"
 
 
 mappings = {
@@ -90,12 +91,16 @@ mappings = {
     "monitor_text_template": bulid_template,
     # "status": lambda row: False if int(row["yxbz"]) == 0 else True,
     "send_type": lambda row: "wechat",
+    "monitor_serve_name": lambda row: "internal_monitor" if row["agentid"] == 1000012 else "external_monitor",
 }
 
 
 from_table = rfile(r"tustaskremindsByWeChat.csv", type="csv")
-sql_list = generate_sql("sys_monitor_config_2", mappings, {}, from_table)
+sql_list = generate_sql("sys_monitor_config", mappings, {}, from_table)
 wfile("result.sql", sql_list, type="list")
 
 print("from_table:", len(from_table))
 print("sql_list:", len(sql_list))
+
+a = rfile(r"result.sql", type="str")
+print(a.count("INSERT"))
