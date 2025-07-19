@@ -1,4 +1,4 @@
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tse.DisplayName,
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tse.DisplayName,
        case
            when tse.shipping_fee_type = ''drop_shipping_account_buy_fee'' then N''一件代发''
            when tse.shipping_fee_type in (''pick_up_account_buy_fee'', ''pick_up_buyer_upload_fee'') then N''上门取货''
@@ -39,8 +39,8 @@ order by tbot.UpdatedDate desc, twe.warehouseCode, PayPalTxID','每日盘点美�
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tsp.Description as description,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tsp.Description as description,
        tst.id          as tblSyncTaskId,
        tst.status      as status,
        tst.FileId      as fileId,
@@ -72,8 +72,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
                        tor.PayPalTxID,
                        tor.OrderDate,
                        tod.ItemCode,
@@ -111,8 +111,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select distinct ts.StoreName,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select distinct ts.StoreName,
                 tos.OrderDate,
                 ts.StorePrefix + ''-'' + CONVERT(varchar(50), tos.orderNumber) as OrderNumber,
                 tos.PAYPALTXID                                               as ''salesOrderNumber'',
@@ -151,8 +151,8 @@ where tss.Carrier = 7
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
                                                                                 tos.orderDate
                                                                                  ,ts.StorePrefix+''-''+CONVERT(VARCHAR(50),tos.orderNumber) as OrderNumber
                                                                                  ,tos.PAYPALTXID  as OrderId
@@ -187,8 +187,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tse.OrdersFrom,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tse.OrdersFrom,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
        case
@@ -281,8 +281,8 @@ group by tse.OrdersFrom, tul.orderId, tul.errmessage, toss.OrderStatus','【B2B-
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select business_type,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select business_type,
        isnull(t.carrier, ''-'') as carrier,
        CA2,
        CA3,
@@ -731,8 +731,8 @@ order by t.sort, t.business_type','【WOS-监控】美国仓库已发单数日�
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select business_type,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select business_type,
        isnull(CarrierCode, '''') as Carrier,
        CA2,
        CA3,
@@ -1234,8 +1234,8 @@ order by t.sort, t.business_type','【WOS-监控】【CA时间19点】美国仓�
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select business_type,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select business_type,
        isnull(CarrierCode, '''') as Carrier,
        CA2,
        CA3,
@@ -1737,8 +1737,8 @@ order by t.sort, t.business_type','【WOS-监控】【CA时间2点AM】美国仓
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tbll.sales_order_number,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tbll.sales_order_number,
        case
            when tbll.carrier_id = 3 then N''FEDEX BUY LABEL失败''
            when tbll.carrier_id = 1 then N''UPS BUY LABEL失败''
@@ -1813,8 +1813,8 @@ group by tul.orderId, tul.errmessage, tod.ItemCode','【WOS-监控】大健云bu
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES (' select  dealtime,workname,WORKCOUNT,OKCOUNT
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES (' select  dealtime,workname,WORKCOUNT,OKCOUNT
 from tuslogheader with(nolock) where workStatus in (2,4) and  (worktype in (49,51,52,53,58) or (WORKTYPE = 26 and storeid = 226)) ','【WOS-监控】【重要】云送仓接口调用异常','songyinghui@gigacloudtech.com','liuchao@gigacloudtech.com,xiafei@gigacloudtech.com,chenkailiang@gigacloudtech.com','dealTime,workName,workCount,okCount','0 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
     <tr>
         <th>负责人</th>
@@ -1837,8 +1837,8 @@ from tuslogheader with(nolock) where workStatus in (2,4) and  (worktype in (49,5
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('    select t.DisplayName                          "StoreName",
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('    select t.DisplayName                          "StoreName",
                               t.warehouseCode                        "仓库CODE",
                               t.PayPalTxID                           "销售订单号",
                               t.createDate                           "订单进入系统的时间",
@@ -1910,8 +1910,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('    select t.DisplayName                          "StoreName",
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('    select t.DisplayName                          "StoreName",
                                                                     t.warehouseCode                        "仓库CODE",
                                                                     t.PayPalTxID                           "销售订单号",
                                                                     t.createDate                           "订单进入系统的时间",
@@ -2021,8 +2021,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select ROW_NUMBER() OVER (ORDER BY temp.sales_order_number) as "No.",
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select ROW_NUMBER() OVER (ORDER BY temp.sales_order_number) as "No.",
        temp.sales_order_number                              as "Sales Order Number",
        temp.ServiceLevel                                    as "Truck",
        temp.warehouseCode                                   as "Warehouse",
@@ -2070,8 +2070,8 @@ from (select teso.sales_order_number,
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tse.DisplayName,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
        case
@@ -2153,8 +2153,8 @@ group by tse.StoreID, tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderSt
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select t.OrderId,t.PO,t.Line from tblWalmartOrderTemp t group by t.OrderId,t.PO,t.Line having count(*)>1','【WOS-监控】[重要]Walmart临时表订单重复报警','liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','OrderId,Po,line','50 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select t.OrderId,t.PO,t.Line from tblWalmartOrderTemp t group by t.OrderId,t.PO,t.Line having count(*)>1','【WOS-监控】[重要]Walmart临时表订单重复报警','liuchao@gigacloudtech.com','chenkailiang@gigacloudtech.com','OrderId,Po,line','50 * * * *','<table border=''1'' cellpadding=''1'' cellspacing=''0'' align=''center''>
     <tr>
         <th>负责人</th>
         <th>用途</th>
@@ -2176,8 +2176,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tblw.WarehouseCode                 ''From'',
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tblw.WarehouseCode                 ''From'',
        ''YiCang''                           ''To'',
        case tul.programCode
            when ''1111'' then ''Fail''
@@ -2225,8 +2225,8 @@ order by tul.programCode desc, tuh.CREATIONDATE desc','【DRP-监控】【重要
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select distinct
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select distinct
                        ta.sales_order_number
                    from tbl_item_code_attachment ta with(nolock)
                             join tblorders tblo with(nolock) on ta.sales_order_number=tblo.PayPalTxID
@@ -2253,8 +2253,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tblw.WarehouseCode                 ''From'',
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tblw.WarehouseCode                 ''From'',
        ''YiCang''                           ''To'',
        case tul.programCode
            when ''1111'' then ''Fail''
@@ -2301,8 +2301,8 @@ order by tul.programCode desc, tuh.CREATIONDATE desc','【DRP-监控】【重要
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select distinct tor.PayPalTxID     ''销售订单号'',
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select distinct tor.PayPalTxID     ''销售订单号'',
                                                       thi.item_code      ''冻结SKU'',
                                                       tse.warehouseCode ''冻结仓库'',
                                                       thi.qty            ''冻结库存'',
@@ -2336,8 +2336,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select *
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select *
 from (select distinct tse.DisplayName as                                   ''店铺'',
                       tor.PayPalTxID  as                                   ''OrderID'',
                       tod.ItemCode,
@@ -2457,8 +2457,8 @@ order by temp.订单类型, temp.订单导入时间, temp.OrderID','22年10月1�
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select distinct
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select distinct
                                          ta.sales_order_number
                                      from tbl_item_code_attachment ta with(nolock)
                                               join tblorders tblo with(nolock) on ta.sales_order_number=tblo.PayPalTxID
@@ -2485,8 +2485,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select t.DisplayName                          "StoreName",
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select t.DisplayName                          "StoreName",
                                                  t.warehouseCode                        "仓库CODE",
                                                  t.PayPalTxID                           "销售订单号",
                                                  t.createDate                           "订单进入系统的时间",
@@ -2560,8 +2560,8 @@ INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,mon
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('-- fedex
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('-- fedex
 -- 上门取货买单
 select N''上门取货买单FedEx'',
        tc.sales_order_number,
@@ -2744,8 +2744,8 @@ where tc.create_date_time > getdate() - 1
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select ts.DisplayName                                                                               ''店铺名'',
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select ts.DisplayName                                                                               ''店铺名'',
        tblo.PayPalTxID                                                                              ''销售订单号'',
        twe.warehouseCode,
        case tbls.Carrier when 1 then ''UPS'' when 3 then ''FEDEX'' when 7 then ''TRUCK'' else null end as ''Carrier'',
@@ -2796,8 +2796,8 @@ order by twe.warehouseCode, ts.shipping_fee_type, tblo.createDate, tblo.PayPalTx
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select twe.warehouseCode                 as ''仓库code'',
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select twe.warehouseCode                 as ''仓库code'',
        tbo.PayPalTxID                    as ''销售订单号'',
        tbo.OrderID                       as ''系统订单号'',
        case
@@ -2844,8 +2844,8 @@ order by twe.warehouseCode,totat.created_date_time asc','【DRP-监控】合作�
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select toi.sales_order_number,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select toi.sales_order_number,
        tor.OrderID,
        convert(varchar(100), toi.create_date_time, 120),
        tos.OrderStatus
@@ -2880,8 +2880,8 @@ where toi.create_date_time > DATEADD(HOUR, -1, GETDATE())
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select toi.sales_order_number,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select toi.sales_order_number,
        tor.OrderID,
        convert(varchar(100), toi.create_date_time, 120),
        case
@@ -2919,8 +2919,8 @@ where toi.create_date_time > DATEADD(HOUR, -1, GETDATE())
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select twe.warehouseCode,convert(varchar(10), max(created_date_time),120) latestSyncDate
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select twe.warehouseCode,convert(varchar(10), max(created_date_time),120) latestSyncDate
 from tbl_wms_pick_zone_inventory wpi
 inner join tblWarehouseExts twe on twe.warehouseId = wpi.warehouse_id
 where wpi.created_date_time < convert(varchar(10), GETDATE(), 120)
@@ -2948,8 +2948,8 @@ order by twe.warehouseCode','WMS库存及库位数据未及时同步到DRP','che
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tbo.PayPalTxID,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tbo.PayPalTxID,
        tbs.DisplayName,
        tos.OrderStatus,
        FORMAT(tbo.OrderDate, ''yyyy-MM-dd HH:mm:ss'')  as orderDate,
@@ -2988,8 +2988,8 @@ where tbo.createDate >= getdate() - 5
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3062,8 +3062,8 @@ group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Nob
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3136,8 +3136,8 @@ group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Nob
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3210,8 +3210,8 @@ group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Nob
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3284,8 +3284,8 @@ group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Nob
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3358,8 +3358,8 @@ group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Nob
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select
        tse.DisplayName,
        tbll.sales_order_number,
        max(convert(varchar, tbll.create_time, 20)) AS dealTime,
@@ -3432,8 +3432,8 @@ group by tse.DisplayName, tul.orderId, tul.errmessage, toss.OrderStatus','【Nob
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('SELECT t.sales_order_number, t.sku
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('SELECT t.sales_order_number, t.sku
 FROM (SELECT store_id, sales_order_number, toid.item_code + ''-001'' sku, SUM(toid.item_qty) AS intercept_qty
       FROM tbl_order_intercept toi with (nolock)
                inner join tbl_order_intercept_detail toid with (nolock) on toi.id = toid.intercept_id
@@ -3478,8 +3478,8 @@ WHERE t.temp_qty <> f.formal_qty','【DRP监控】订单正式表与统一临时
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select twe.warehouseCode,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select twe.warehouseCode,
        tse.DisplayName,
        tos.PayPalTxID,
        toss.OrderStatus,
@@ -3520,8 +3520,8 @@ group by twe.warehouseCode,
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select toi.sales_order_number,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select toi.sales_order_number,
        tor.OrderID,
        toi.create_date_time,
        case when toi.deal_type = 1 then N''取消'' else N''拦截'' end       as dealType,
@@ -3556,8 +3556,8 @@ where toi.data_source = ''B2B''
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('SELECT t.sales_order_number, t.sku
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('SELECT t.sales_order_number, t.sku
 FROM (SELECT store_id, sales_order_number, toid.item_code sku, SUM(toid.item_qty) AS intercept_qty
       FROM tbl_order_intercept toi with (nolock)
                inner join tbl_order_intercept_detail toid with (nolock) on toi.id = toid.intercept_id
@@ -3606,8 +3606,8 @@ WHERE t.temp_qty <> f.yzc_qty','【DRP监控】订单统一临时表与B2B临时
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('SELECT IIF(tse.shipping_fee_type = ''pick_up_account_buy_fee'' OR tse.shipping_fee_type = ''pick_up_buyer_upload_fee'',
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('SELECT IIF(tse.shipping_fee_type = ''pick_up_account_buy_fee'' OR tse.shipping_fee_type = ''pick_up_buyer_upload_fee'',
            N''上门取货'', N''一件代发'') AS ''订单类型'',
        ''UPS''                         AS ''物流公司'',
        ''UPS Roadie Ground''           AS ''物流服务'',
@@ -3654,8 +3654,8 @@ GROUP BY IIF(tse.shipping_fee_type = ''pick_up_account_buy_fee'' OR tse.shipping
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
-INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type) VALUES ('select tbo.from_system,
+{splicingTableStr}','email',true,'sqlserver','cron')
+INSERT INTO sys_monitor_config (monitor_table_sql,monitor_subject,monitor_to,monitor_cc,monitor_table_field,cron,monitor_text_template,send_type,status,data_source,execute_mode) VALUES ('select tbo.from_system,
        tul.orderId,
        max(convert(varchar, tul.creationdate, 20)) AS dealTime,
        tul.errmessage,
@@ -3698,4 +3698,4 @@ ORDER BY max(convert(varchar, tul.creationdate, 20))','【US_DRP】UPS Roadie Bu
         </td>
     </tr>
 </table><br /><br /><br />
-{splicingTableStr}','email')
+{splicingTableStr}','email',true,'sqlserver','cron')

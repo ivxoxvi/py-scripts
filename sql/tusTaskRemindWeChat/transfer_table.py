@@ -13,12 +13,12 @@ def generate_sql(table_name, mappings, defaults, table):
         columns, values = [], []
         for field, map_func in mappings.items():
             columns.append(field)
-            values.append(escape(map_func(row)))
+            values.append(convert(map_func(row)))
         for field, default_value in defaults.items():
             if field in columns:
                 continue
             columns.append(field)
-            values.append(escape(default_value))
+            values.append(convert(default_value))
         column_part = ",".join(columns)
         value_part = ",".join(values)
         sql = f"INSERT INTO {table_name} ({column_part}) VALUES ({value_part})"
@@ -26,9 +26,13 @@ def generate_sql(table_name, mappings, defaults, table):
     return insert_sql_list
 
 
-def escape(value):
+def convert(value):
     if isinstance(value, str):
         value = "'" + value.replace("'", "''") + "'"
+    elif isinstance(value, bool):
+        value = "true" if value else "false"
+    elif isinstance(value, (int, float)):
+        value = str(value)
     elif value is None:
         value = "NULL"
     return value
@@ -52,16 +56,16 @@ def hours_to_cron(row):
         cron = f"{dt.minute} {cron_hour} * * *"
     else:
         raise ValueError(f"Unknown cycleTime: {cycle_time} type: {type(cycle_time)}")
-    
+
     if time_zones is None or len(time_zones) == 0:
         return cron
 
     cron_list = cron.split(" ")
-    if cron_list[1] =="*":
+    if cron_list[1] == "*":
         hour_part = time_zones
     else:
         hour_part = cron_list[1].split(",")
-        
+
     cron_list[1] = ",".join(hour.strip() for hour in hour_part if hour in time_zones)
     cron = " ".join(cron_list)
     if len(cron.split(" ")) != 5:
@@ -89,9 +93,13 @@ mappings = {
     "monitor_to": lambda row: row["tobox"].replace("|", ","),
     "cron": hours_to_cron,
     "monitor_text_template": bulid_template,
-    # "status": lambda row: False if int(row["yxbz"]) == 0 else True,
+    "status": lambda row: False if int(row["yxbz"]) == 0 else True,
     "send_type": lambda row: "wechat",
-    "monitor_serve_name": lambda row: "internal_monitor" if row["agentid"] == 1000012 else "external_monitor",
+    "monitor_serve_name": lambda row: (
+        "internal_monitor" if row["agentid"] == "1000012" else "external_monitor"
+    ),
+    "data_source": lambda row: "sqlserver",
+    "execute_mode": lambda row: "cron",
 }
 
 

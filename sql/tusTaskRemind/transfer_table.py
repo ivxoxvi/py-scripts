@@ -13,12 +13,12 @@ def generate_sql(table_name, mappings, defaults, table):
         columns, values = [], []
         for field, map_func in mappings.items():
             columns.append(field)
-            values.append(escape(map_func(row)))
+            values.append(convert(map_func(row)))
         for field, default_value in defaults.items():
             if field in columns:
                 continue
             columns.append(field)
-            values.append(escape(default_value))
+            values.append(convert(default_value))
         column_part = ",".join(columns)
         value_part = ",".join(values)
         sql = f"INSERT INTO {table_name} ({column_part}) VALUES ({value_part})"
@@ -26,9 +26,13 @@ def generate_sql(table_name, mappings, defaults, table):
     return insert_sql_list
 
 
-def escape(value):
+def convert(value):
     if isinstance(value, str):
         value = "'" + value.replace("'", "''") + "'"
+    elif isinstance(value, bool):
+        value = "true" if value else "false"
+    elif isinstance(value, (int, float)):
+        value = str(value)
     elif value is None:
         value = "NULL"
     return value
@@ -102,6 +106,9 @@ mappings = {
     "cron": datetime_to_cron,
     "monitor_text_template": bulid_template,
     "send_type": lambda row: "email",
+    "status": lambda row: True,
+    "data_source": lambda row: "sqlserver",
+    "execute_mode": lambda row: "cron",
 }
 
 
