@@ -4,14 +4,11 @@ import csv
 from pathlib import Path
 
 def rfile(path, *, type = 'str'):
-    real_path = None
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
-        real_path = Path(caller_file).parent / path
-    else:
-        real_path = path
+        path = Path(caller_file).parent / path
 
-    with open(real_path, 'r', encoding='utf-8') as file:
+    with open(path, 'r', encoding='utf-8') as file:
         if type == 'str':
             return file.read()
         if type == 'list':
@@ -22,14 +19,11 @@ def rfile(path, *, type = 'str'):
             return list(csv.DictReader(file))
 
 def wfile(path, data, *, type = 'str'):
-    real_path = None
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
-        real_path = Path(caller_file).parent / path
-    else:
-        real_path = path
+        path = Path(caller_file).parent / path
 
-    with open(real_path, 'w', encoding='utf-8') as file:
+    with open(path, 'w', encoding='utf-8') as file:
         if type == 'str':
             file.write(str(data))
         if type == 'list':
