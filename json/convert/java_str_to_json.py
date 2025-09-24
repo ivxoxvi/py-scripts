@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).parent.parent))
 from util.rwFile import rfile
 
-class JavaParseParser:
+class JavaStrToJsonParser:
     def __init__(self, java_str: str):
         self.java_str = java_str
         self.index = 0
@@ -30,7 +30,7 @@ class JavaParseParser:
         self.skip_blank()
 
         arr = []
-        while True:
+        while self.index < self.length:
             arr.append(self.parse_obj())
             self.skip_blank()
             if self.current() == ',':
@@ -111,5 +111,5 @@ class JavaParseParser:
             self.step()
         return self.java_str[start:self.index]
 
-obj = JavaParseParser(rfile(r'java_str.txt')).parse()
+obj = JavaStrToJsonParser(rfile(r'java_str.txt')).parse()
 print(json.dumps(obj,indent=4,ensure_ascii=False))
