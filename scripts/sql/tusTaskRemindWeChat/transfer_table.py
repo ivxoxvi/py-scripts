@@ -1,7 +1,6 @@
-import pandas as pd
 import sys
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from util.rwFile import rfile, wfile

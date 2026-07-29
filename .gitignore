@@ -1,8 +1,20 @@
-__pycache__/
-.vscode/
-.idea/
-downloads/
+# app
+downloads
+output
+output.*
+*.log
+temp
 
+# py
+__pycache__
+.venv
 *.pyc
 *.pyo
 *.pyd
+
+# IDE
+.vscode
+.idea
+
+# sys
+.DS_Store
