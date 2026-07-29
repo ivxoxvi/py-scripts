@@ -5,10 +5,9 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from util.rwFile import wfile
 
-ROOT_FOLDER = r"/Users/vxoxvx/Code/OpenSources/Templates"
-# {ROOT_FOLDER}/
+ROOT_FOLDER = r'/Users/vxoxvx/Code/Playgrounds'
 MD_OUTPUT = f"{ROOT_FOLDER}/cloc_result.md"
-EXCLUDE = [
+EXCLUDE_FILE = [
     "node_modules",
     ".git",
     "dist",
@@ -22,17 +21,31 @@ EXCLUDE = [
 ]
 
 
-def get_project_loc(project_dir: Path):
-    """调用cloc获取单个项目汇总数据"""
-    cmd = ["cloc", str(project_dir), "--md", f"exclude-list-file={','.join(EXCLUDE)}"]
+def run_cloc(project_dir: Path):
+    cmd = [
+        "cloc",
+        str(project_dir),
+        "--md",
+        f"exclude-list-file={','.join(EXCLUDE_FILE)}",
+    ]
     try:
         proc = subprocess.run(
             cmd, capture_output=True, text=True, encoding="utf-8", check=True
         )
         return proc.stdout
     except Exception as err:
-        print(f"cmd error: {project_dir.name} : {err}")
+        print(f"cloc error: {project_dir.name} : {err}")
         return None
+
+
+def rm_cloc_header(cloc_str: str) -> str:
+    return cloc_str[cloc_str.find("Language|") :]
+
+
+def extract_cloc_sum(cloc_str) -> int:
+    sum_line = cloc_str[cloc_str.rfind("SUM") :]
+    sum_number = sum_line.split("|")[-1].strip()
+    return int(sum_number)
 
 
 def main():
@@ -42,32 +55,27 @@ def main():
         return
 
     cloc_results = {}
-    # 遍历一级子文件夹
     for entry in root.iterdir():
         if not entry.is_dir():
             continue
-        print(f"clocing：{entry}")
-        data = get_project_loc(entry)
-        if data:
-            cloc_results[entry.name] = "\n".join(data.splitlines()[2:])+ "\n"
-
-    # for a in cloc_results.items():
-    #     print(f"{a[0]}&&&{a[1][a[1].rfind("SUM") :].split("|")[-1].strip()}&&&")
+        print(f"cloc：{entry}")
+        cloc_out = run_cloc(entry)
+        if cloc_out:
+            cloc_results[entry.name] = rm_cloc_header(cloc_out)
 
     sorted_items = sorted(
         cloc_results.items(),
-        key=lambda x: int(x[1][x[1].rfind("SUM") :].split("|")[-1].strip()),
+        key=lambda x: extract_cloc_sum(x[1]),
     )
 
-    lines = ["# cloc result\n"]
+    lines = []
     for k, v in sorted_items:
-        lines.append(f"## {k}")
-        lines.append(str(v))
-    md = "\n".join(lines)
+        lines.append(f"## {k}\n")
+        lines.append(v)
+    md = "# CLOC result\n\n" + "\n".join(lines)
 
-    # 写入文件
     wfile(MD_OUTPUT, md)
-    print(f"\n✅ 统计完成！输出文件：{MD_OUTPUT}")
+    print(f"cloc complete, result file：{MD_OUTPUT}")
 
 
 if __name__ == "__main__":
