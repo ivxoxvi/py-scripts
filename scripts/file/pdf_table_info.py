@@ -104,6 +104,8 @@ def toc_stats(toc_items: list[TocItem], page_count, *, top_n=5):
     max_display_width = max(calc_display_width(item.title) for item in max5 + min5)
 
     lines = [f"Total pages count: {page_count}"]
+    lines += [f"Mean pages count: {page_count//len(l1)}"]
+    lines += [f"Median pages count: {l1[len(l1)//2].length}"]
     lines += [f"Top {top_n} Level 1 TOC Entries (Max Pages):"]
     lines += [
         f"    {item.title.ljust(calc_real_width(item.title,max_display_width))}{" "*5}{item.length:4} ({item.ratio*100:.1f}%)"
@@ -121,6 +123,6 @@ if __name__ == "__main__":
     toc, total_pages = get_pdf_toc(PDF_PATH)
     toc_items = process_toc(toc, total_pages)
     print(f"\n<{" STATS ":=^80}>\n")
-    print(toc_stats(toc_items, total_pages))
+    print(toc_stats(toc_items, total_pages, top_n=10))
     print(f"\n<{" Table of Content ":=^80}>\n")
     print(fmt_toc(toc_items, indent=4))
