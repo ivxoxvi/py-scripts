@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
     "pandas>=3.0.5",
+    "pymupdf>=1.28.0",
 ]
 
 [tool.pylint.messages_control]
@@ -13,4 +14,7 @@ disable = [
     "missing-module-docstring",
     "missing-class-docstring",
     "missing-function-docstring",
+    "W0621"
 ]
+
+
