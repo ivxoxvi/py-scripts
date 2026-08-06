@@ -5,10 +5,16 @@ import sys
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from util.rwFile import wfile
 
-ROOT_FOLDER = r'/Users/vxoxvx/Code/Playgrounds'
+ROOT_FOLDER = r"/Users/vxoxvx/Code/Playgrounds"
 MD_OUTPUT = f"{ROOT_FOLDER}/cloc-report.md"
-EXCLUDE_FILE = [
+EXCLUDE_DIR = [
+    "react",
     "node_modules",
+    ".next",
+    ".react-router",
+    ".agents",
+    ".claude",
+    ".vscode",
     ".git",
     "dist",
     "build",
@@ -26,7 +32,7 @@ def run_cloc(project_dir: Path):
         "cloc",
         str(project_dir),
         "--md",
-        f"exclude-list-file={','.join(EXCLUDE_FILE)}",
+        f"--exclude-dir={','.join(EXCLUDE_DIR)}",
     ]
     try:
         proc = subprocess.run(
@@ -75,7 +81,7 @@ def main():
     md = "# CLOC result\n\n" + "\n".join(lines)
 
     wfile(MD_OUTPUT, md)
-    print(f"cloc complete, result file：{MD_OUTPUT}")
+    print(f"cloc complete, report location：{MD_OUTPUT}")
 
 
 if __name__ == "__main__":
