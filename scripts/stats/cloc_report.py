@@ -6,7 +6,7 @@ sys.path.append(str(Path(__file__).parent.parent.parent))
 from util.rwFile import wfile
 
 ROOT_FOLDER = r'/Users/vxoxvx/Code/Playgrounds'
-MD_OUTPUT = f"{ROOT_FOLDER}/cloc_result.md"
+MD_OUTPUT = f"{ROOT_FOLDER}/cloc-report.md"
 EXCLUDE_FILE = [
     "node_modules",
     ".git",
