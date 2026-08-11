@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
-from util.rwFile import rfile
+from util.rw_file import rfile
 
 class JavaStrToJsonParser:
     def __init__(self, java_str: str):

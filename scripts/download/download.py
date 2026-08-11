@@ -5,7 +5,7 @@ from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
 
 sys.path.append(str(Path(__file__).parent.parent))
-from util.rwFile import rfile, wfile
+from util.rw_file import rfile, wfile
 
 
 DOWNLOAD_URL_FILE = "download_urls.txt"
@@ -55,7 +55,7 @@ def generate_save_path(args: tuple, idx: int) -> Path:
 
 download_entrys = [
     url.strip()
-    for url in rfile(DOWNLOAD_URL_FILE, type="list")
+    for url in rfile(DOWNLOAD_URL_FILE, typ="list")
     if not url.startswith("# ") and url.strip()
 ]
 

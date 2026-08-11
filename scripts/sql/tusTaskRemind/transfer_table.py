@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from util.rwFile import rfile, wfile
+from util.rw_file import rfile, wfile
 
 
 def generate_sql(table_name, mappings, defaults, table):
@@ -112,10 +112,10 @@ mappings = {
 }
 
 
-from_table = rfile(r"tusTaskReminds.csv", type="csv")
+from_table = rfile(r"tusTaskReminds.csv", typ="csv")
 defaults = {"monitor_text_template": ""}
 sql_list = generate_sql("sys_monitor_config", mappings, defaults, from_table)
-wfile("result.sql", sql_list, type="list")
+wfile("result.sql", sql_list, typ="list")
 
 print("from_table:", len(from_table))
 print("sql_list:", len(sql_list))

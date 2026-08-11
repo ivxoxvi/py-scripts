@@ -3,7 +3,7 @@ from pathlib import Path
 import sys
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from util.rwFile import wfile
+from util.rw_file import wfile
 
 ROOT_FOLDER = r"/Users/vxoxvx/Code/Playgrounds"
 MD_OUTPUT = f"{ROOT_FOLDER}/cloc-report.md"

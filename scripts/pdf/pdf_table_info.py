@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 import fitz
 
-PDF_PATH = "/Users/vxoxvx/Downloads/斯图尔特微积分(上册) 第九版pdf.pdf"
+ROOT = "/Users/vxoxvx/Downloads/斯图尔特微积分(上册) 第九版pdf.pdf"
 
 
 def calc_display_width(s: str) -> int:
@@ -115,7 +115,7 @@ def toc_stats(
 
 
 if __name__ == "__main__":
-    toc, total_pages = get_pdf_toc(PDF_PATH)
+    toc, total_pages = get_pdf_toc(ROOT)
     toc_items = process_toc(toc, total_pages)
     print(f"\n<{" STATS ":=^80}>\n")
     print(

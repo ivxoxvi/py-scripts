@@ -5,9 +5,9 @@ from datetime import datetime
 import json
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from util.rwFile import rfile, wfile
+from util.rw_file import rfile, wfile
 
-data = rfile(r"data.json", type="json")
+data = rfile(r"data.json", typ="json")
 
 for item in data:
     item['salesOrderNumber'] = 'test-2025-17-07-00' + str(count)
