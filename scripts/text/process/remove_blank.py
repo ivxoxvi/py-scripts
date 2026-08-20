@@ -18,20 +18,30 @@ def add_proj_root():
 add_proj_root()
 from util.rw_file import rfile, wfile
 
-INPUT_FILE = "./remove_blank_input.txt"
-
+INPUT_FILE = "remove_blank_input.txt"
+ONPUT_FILE = "remove_blank_output.txt"
 
 def remove_blank(s: str) -> str:
     return s.translate(str.maketrans("", "", string.whitespace))
 
 
+def remove_space(s: str) -> str:
+    return s.translate(str.maketrans("", "", " "))
+
+
+def remove_newline(s: str) -> str:
+    return s.translate(str.maketrans("", "", "\n\r"))
+
+
 if __name__ == "__main__":
     s = rfile(INPUT_FILE, typ="str")
-    str_no_blank = remove_blank(s)
-    print(str_no_blank)
+    processed_str = remove_blank(s)
+    print(processed_str)
 
     str_len = len(s)
-    str_no_blank_len = len(str_no_blank)
+    processed_str_len = len(processed_str)
     print(
-        f"\nword count: {str_len} -> {str_no_blank_len}, removed {str_len - str_no_blank_len} blanks."
+        f"\nword count: {str_len} -> {processed_str_len}, removed {str_len - processed_str_len} blanks."
     )
+
+    # wfile(processed_str , typ="str","remove_blank_output")

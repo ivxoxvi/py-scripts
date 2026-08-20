@@ -1,6 +1,9 @@
 import csv
 import inspect
 import json
+import os
+from collections.abc import Iterable, Mapping
+from io import StringIO
 from pathlib import Path
 from typing import Any, Literal, overload
 
@@ -12,6 +15,8 @@ def rfile(path: str | Path, *, typ: Literal["list"]) -> list[str]: ...
 @overload
 def rfile(path: str | Path, *, typ: Literal["json"]) -> Any: ...
 @overload
+def rfile(path: str | Path, *, typ: Literal["jsonl"]) -> list[Any]: ...
+@overload
 def rfile(path: str | Path, *, typ: Literal["csv"]) -> list[dict[str, str]]: ...
 @overload
 def rfile(path: str | Path, *, typ: Literal["tsv"]) -> list[dict[str, str]]: ...
@@ -22,46 +27,118 @@ def rfile(path: str | Path, *, typ="str"):
         caller_file = inspect.stack()[1].filename
         path = Path(caller_file).parent / path
 
-    with open(path, "r", encoding="utf-8") as file:
+    with open(path, "r", encoding="utf-8") as f:
         if typ == "str":
-            return file.read()
+            return f.read()
         if typ == "list":
-            return file.readlines()
+            return f.readlines()
         if typ == "json":
-            return json.load(file)
+            return json.load(f)
+        if typ == "jsonl":
+            result = []
+            for line in f:
+                line = line.strip()
+                if line:
+                    result.append(json.loads(line))
+            return result
         if typ == "csv":
-            return list(csv.DictReader(file))
+            return list(csv.DictReader(f))
         if typ == "tsv":
-            return list(csv.DictReader(file, delimiter="\t"))
-        raise AttributeError(f"not support this file type: {typ}")
-
-
-@overload
-def wfile(path: str | Path, data: str, *, typ: Literal["str"]) -> None: ...
-@overload
-def wfile(path: str | Path, data: list[str], *, typ: Literal["list"]) -> None: ...
-@overload
-def wfile(path: str | Path, data: Any, *, typ: Literal["json"]) -> None: ...
+            return list(csv.DictReader(f, delimiter="\t"))
+        raise ValueError(f"not support this file type: {typ}")
 
 
 DEFAULT_OUTPUT_ROOT = Path("output")
 
 
-def wfile(path: str | Path, data, *, typ="str", root=DEFAULT_OUTPUT_ROOT):
+@overload
+def wfile(
+    data: str,
+    path: str | Path,
+    *,
+    typ: Literal["str"] = "str",
+    root: str | Path = DEFAULT_OUTPUT_ROOT,
+    append: bool = False,
+) -> None: ...
+@overload
+def wfile(
+    data: list[str],
+    path: str | Path,
+    *,
+    typ: Literal["list"],
+    root: str | Path = DEFAULT_OUTPUT_ROOT,
+    append: bool = False,
+) -> None: ...
+@overload
+def wfile(
+    data: Any,
+    path: str | Path,
+    *,
+    typ: Literal["json"],
+    root: str | Path = DEFAULT_OUTPUT_ROOT,
+    append: bool = False,
+) -> None: ...
+@overload
+def wfile(
+    data: Any,
+    path: str | Path,
+    *,
+    typ: Literal["jsonl"],
+    root: str | Path = DEFAULT_OUTPUT_ROOT,
+    append: bool = False,
+) -> None: ...
+@overload
+def wfile(
+    data: Iterable[Mapping[Any, Any]],
+    path: str | Path,
+    *,
+    typ: Literal["csv"],
+    root: str | Path = DEFAULT_OUTPUT_ROOT,
+    append: bool = False,
+) -> None: ...
+
+
+def wfile(
+    data: Any,
+    path: str | Path,
+    *,
+    typ="str",
+    root: str | Path = DEFAULT_OUTPUT_ROOT,
+    append: bool = False,
+):
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
         path = Path(caller_file).parent / root / path
+        path.parent.mkdir(parents=True, exist_ok=True)
+    mode = "a" if append else "w"
 
-    with open(path, "w", encoding="utf-8") as file:
+    with open(path, mode, encoding="utf-8") as f:
         if typ == "str":
-            file.write(str(data))
+            f.write(str(data))
         elif typ == "list":
             for item in data:
-                file.write(item + "\n")
+                f.write(item + "\n")
         elif typ == "json":
-            json.dump(data, file, ensure_ascii=False, indent=4)
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        elif typ == "jsonl":
+            if isinstance(data, list):
+                for item in data:
+                    f.write(json.dumps(item, ensure_ascii=False) + "\n")
+            else:
+                f.write(json.dumps(data, ensure_ascii=False) + "\n")
+        elif typ == "csv":
+            stream = StringIO()
+            headers = data[0].keys()
+            writer = csv.DictWriter(stream, fieldnames=headers)
+            write_header = not (
+                append and os.path.exists(path) and os.path.getsize(path) > 0
+            )
+            if write_header:
+                writer.writeheader()
+            writer.writerows(data)
+            f.write(stream.getvalue())
         else:
-            raise AttributeError(f"not support this file type: {typ}")
+            raise ValueError(f"not support this file type: {typ}")
 
 
 def curr_dir() -> Path:
