@@ -1,6 +1,7 @@
+import string
 import sys
 from pathlib import Path
-import string
+
 import matplotlib.pyplot as plt
 
 
@@ -32,4 +33,4 @@ if __name__ == "__main__":
         key = line["# word"][0].upper()
         initial_count[key] += 1
 
-    show(initial_count, typ="hist,pie",sort="desc")
+    show(initial_count, typ="hist,pie", sort="desc")

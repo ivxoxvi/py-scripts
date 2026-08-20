@@ -1,5 +1,4 @@
 import inspect
-
 import sys
 from pathlib import Path
 
@@ -17,7 +16,6 @@ def add_proj_root():
 
 
 add_proj_root()
-
 
 exclude_dirs = {
     "venv",

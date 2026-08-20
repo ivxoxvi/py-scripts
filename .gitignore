@@ -1,11 +1,11 @@
-# app
+# App
 downloads
 output
 output.*
 *.log
 temp
 
-# py
+# Python
 __pycache__
 .venv
 *.pyc
@@ -16,5 +16,5 @@ __pycache__
 .vscode
 .idea
 
-# sys
+# Mac
 .DS_Store

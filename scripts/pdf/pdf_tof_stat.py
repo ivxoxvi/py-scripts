@@ -1,10 +1,11 @@
-from typing import Callable
 import unicodedata
-from dataclasses import dataclass
+from collections.abc import Callable
+from dataclasses import asdict, dataclass
+import json
 
 import fitz
 
-ROOT = "/Users/vxoxvx/Downloads/斯图尔特微积分(上册) 第九版pdf.pdf"
+ROOT = "/Users/vxoxvx/Shelf/旋元佑文法.pdf"
 
 
 def calc_display_width(s: str) -> int:
@@ -49,15 +50,15 @@ def process_toc(toc, total_pages: int) -> list[TocItem]:
     toc_items = []
     for i, (level, title, start) in enumerate(toc):
         next_item = find_next_item_by_lv(i, level, toc)
-        end = next_item[2] - 1 if next_item is not None else total_pages
-        item_page_count = end - start + 1
+        end_page = next_item[2] if next_item is not None else total_pages
+        item_page_count = end_page - start
         toc_items.append(
             TocItem(level, title, start, item_page_count, item_page_count / total_pages)
         )
     return toc_items
 
 
-def fmt_toc(toc_items: list[TocItem], *, indent=2, max_depth: int | None = None):
+def fmt_toc(toc_items: list[TocItem], *, indent: int = 2, max_depth: int | None = None):
     if max_depth is not None:
         toc_items = [item for item in toc_items if item.level < max_depth]
     if not toc_items:
@@ -70,20 +71,22 @@ def fmt_toc(toc_items: list[TocItem], *, indent=2, max_depth: int | None = None)
     for item in toc_items:
         indent_space = " " * indent * (item.level - 1)
         page_info = (
-            f"{item.start:>4} {f"({item.ratio*100:.1f}%)" if item.level == 1 else ""}"
+            f"{item.start:>4} {f'({item.ratio * 100:.1f}%)' if item.level == 1 else ''}"
         )
         target_len = calc_real_width(item.title, max_display_title_len) - len(
             indent_space
         )
-        lines.append(f"{indent_space}{item.title.ljust(target_len)}{" "*5}{page_info}")
+        lines.append(
+            f"{indent_space}{item.title.ljust(target_len)}{' ' * 5}{page_info}"
+        )
     return "\n".join(lines)
 
 
 def toc_stats(
     toc_items: list[TocItem],
-    page_count,
+    page_count: int,
     *,
-    top_n=5,
+    top_n:int=5,
     exclude_func: Callable[[TocItem], bool] = lambda item: True,
 ):
     lv = 1
@@ -98,17 +101,19 @@ def toc_stats(
     min5 = item_lv1[-top_n:][::-1]
     max_display_width = max(calc_display_width(item.title) for item in max5 + min5)
 
-    lines = [f"Total Pages Count  : {page_count:>4}"]
-    lines += [f"Mean Pages Count   : {page_count//len(item_lv1):>4}"]
-    lines += [f"Median Pages Count : {item_lv1[len(item_lv1)//2].length:>4}"]
+    lines = [f"Total Pages             : {page_count:>4}"]
+    lines += [f"Mean Pages by Chapter   : {page_count // len(item_lv1):>4}"]
+    lines += [f"Median Pages by Chapter : {item_lv1[len(item_lv1) // 2].length:>4}"] + [
+        "\n"
+    ]
     lines += [f"Level {lv} TOC Entries (Max Pages Top {top_n}):"]
     lines += [
-        f"  {item.title.ljust(calc_real_width(item.title,max_display_width))}{" "*5}{item.length:4} ({item.ratio*100:.1f}%)"
+        f"  {item.title.ljust(calc_real_width(item.title, max_display_width))}{' ' * 5}{item.length:4} ({item.ratio * 100:.1f}%)"
         for item in max5
-    ]
+    ] + ["\n"]
     lines += [f"Level {lv} TOC Entries (Min Pages Top {top_n}):"]
     lines += [
-        f"  {item.title.ljust(calc_real_width(item.title,max_display_width))}{" "*5}{item.length:4} ({item.ratio*100:.1f}%)"
+        f"  {item.title.ljust(calc_real_width(item.title, max_display_width))}{' ' * 5}{item.length:4} ({item.ratio * 100:.1f}%)"
         for item in min5
     ]
     return "\n".join(lines)
@@ -117,7 +122,9 @@ def toc_stats(
 if __name__ == "__main__":
     toc, total_pages = get_pdf_toc(ROOT)
     toc_items = process_toc(toc, total_pages)
-    print(f"\n<{" STATS ":=^80}>\n")
+    # print(json.dumps([asdict(i) for i in toc_items], indent=2, ensure_ascii=False))
+    
+    print(f"\n<{' STATS ':=^80}>\n")
     print(
         toc_stats(
             toc_items,
@@ -126,5 +133,5 @@ if __name__ == "__main__":
             exclude_func=lambda a: a.length < 10,
         )
     )
-    print(f"\n<{" Table of Content ":=^80}>\n")
+    print(f"\n<{' Table of Content ':=^80}>\n")
     print(fmt_toc(toc_items, indent=4))

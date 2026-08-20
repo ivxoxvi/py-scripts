@@ -1,8 +1,8 @@
-import json
-import inspect
 import csv
+import inspect
+import json
 from pathlib import Path
-from typing import overload, Literal, Any
+from typing import Any, Literal, overload
 
 
 @overload
@@ -15,11 +15,9 @@ def rfile(path: str | Path, *, typ: Literal["json"]) -> Any: ...
 def rfile(path: str | Path, *, typ: Literal["csv"]) -> list[dict[str, str]]: ...
 @overload
 def rfile(path: str | Path, *, typ: Literal["tsv"]) -> list[dict[str, str]]: ...
-@overload
-def rfile(path: str | Path, *, typ: str = "str") -> None: ...
 
 
-def rfile(path, *, typ="str"):
+def rfile(path: str | Path, *, typ="str"):
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
         path = Path(caller_file).parent / path
@@ -44,14 +42,15 @@ def wfile(path: str | Path, data: str, *, typ: Literal["str"]) -> None: ...
 def wfile(path: str | Path, data: list[str], *, typ: Literal["list"]) -> None: ...
 @overload
 def wfile(path: str | Path, data: Any, *, typ: Literal["json"]) -> None: ...
-@overload
-def wfile(path: str | Path, data: Any, *, typ: str = "str") -> None: ...
 
 
-def wfile(path, data, *, typ="str"):
+DEFAULT_OUTPUT_ROOT = Path("output")
+
+
+def wfile(path: str | Path, data, *, typ="str", root=DEFAULT_OUTPUT_ROOT):
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
-        path = Path(caller_file).parent / path
+        path = Path(caller_file).parent / root / path
 
     with open(path, "w", encoding="utf-8") as file:
         if typ == "str":

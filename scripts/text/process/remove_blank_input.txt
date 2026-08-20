@@ -1,0 +1,10 @@
+"dfddfdf": {
+  "prefix": "dfdfdf",
+  "body": [
+    "if __name__ == \"__main__\":",
+    "    source_code = inspect.getsource(add_proj_root)",
+    "    print(source_code)",
+    "${1:${1:${1:${1:example}}}}"
+  ],
+  "description": "dfddfdf"
+}
