@@ -1,9 +1,11 @@
+import ast
 import inspect
 import sys
 from pathlib import Path
 
 
-def add_proj_root():
+def add_proj_root_to_path():
+    """add project dir to the path"""
     i, max_layer = 0, 5
     root = Path(__file__).resolve()
     while not (root / "pyproject.toml").exists():
@@ -15,7 +17,7 @@ def add_proj_root():
         sys.path.append(str(root))
 
 
-add_proj_root()
+add_proj_root_to_path()
 
 exclude_dirs = {
     "venv",
@@ -45,6 +47,16 @@ def scan_py_files(root_dir: str | Path):
     return py_files
 
 
+def process(code):
+    tree = ast.parse(code)
+    # whether has add_proj_root_to_path function
+    # if yes, compare func code with func code in this file
+    # if idenetify, return
+    # else, insert func code to the code
+    print(tree.body)
+    print(ast.unparse(tree))
+
+
 if __name__ == "__main__":
-    source_code = inspect.getsource(add_proj_root)
+    source_code = inspect.getsource(add_proj_root_to_path)
     print(source_code)
