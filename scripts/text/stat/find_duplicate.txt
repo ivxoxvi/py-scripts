@@ -1,0 +1,25 @@
+/Users/vxoxvx/Code/Scripts/py-scripts/.venv/bin
+/Users/vxoxvx/.local/run/user/501/fnm_multishells/92246_1788167205150/bin
+/opt/homebrew/bin
+/opt/homebrew/sbin
+/opt/homebrew/share/john
+/usr/local/bin
+/System/Cryptexes/App/usr/bin
+/usr/bin
+/bin
+/usr/sbin
+/sbin
+/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+/pkg/env/global/bin
+/Library/Apple/usr/bin
+/Users/vxoxvx/.local/share/cargo/bin
+/Users/vxoxvx/.local/bin
+/Users/vxoxvx/Bin
+/opt/homebrew/opt/rustup/bin
+/Users/vxoxvx/.local/run/user/501/fnm_multishells/87693_1788165710765/bin
+/Users/vxoxvx/.local/run/user/501/fnm_multishells/84441_1788006608037/bin
+/Users/vxoxvx/Library/Application Support/JetBrains/Toolbox/scripts
+/Users/vxoxvx/.orbstack/bin
+/Users/vxoxvx/.orbstack/bin
