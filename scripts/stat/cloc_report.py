@@ -1,6 +1,6 @@
 import subprocess
-from pathlib import Path
 import sys
+from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
 from util.rw_file import wfile
@@ -80,7 +80,7 @@ def main():
         lines.append(v)
     md = "# CLOC result\n\n" + "\n".join(lines)
 
-    wfile(MD_OUTPUT, md)
+    wfile(md, MD_OUTPUT)
     print(f"cloc complete, report location：{MD_OUTPUT}")
 
 

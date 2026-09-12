@@ -116,14 +116,14 @@ def wfile(
         if typ == "str":
             f.write(str(data))
         elif typ == "list":
-            for item in data:
-                f.write(item + "\n")
+            f.writelines(item + "\n" for item in data)
         elif typ == "json":
             json.dump(data, f, ensure_ascii=False, indent=4)
         elif typ == "jsonl":
             if isinstance(data, list):
-                for item in data:
-                    f.write(json.dumps(item, ensure_ascii=False) + "\n")
+                f.writelines(
+                    json.dumps(item, ensure_ascii=False) + "\n" for item in data
+                )
             else:
                 f.write(json.dumps(data, ensure_ascii=False) + "\n")
         elif typ == "csv":
