@@ -90,8 +90,10 @@ def show(
             case "scatter":
                 ax.scatter(keys, vals)
             case "pie":
+
                 def pie_format(pct):
-                    return f'{pct:.1f}%' if pct > 5 else ''
+                    return f"{pct:.1f}%" if pct > 5 else ""
+
                 ax.pie(vals, labels=keys, autopct=pie_format)
             case _:
                 raise TypeError(f"this picture type is not supported: {t}")
@@ -100,7 +102,7 @@ def show(
     if title:
         fig.suptitle(title)
     if stats:
-        stat_str = f"count:{stats["count"]}  sum:{stats["sum"]}  mean:{stats["mean"]:.2f}  std:{stats["std"]:.2f}  min:{stats["min"]:.2f}  max:{stats["max"]:.2f}"
+        stat_str = f"count:{stats['count']}  sum:{stats['sum']}  mean:{stats['mean']:.2f}  std:{stats['std']:.2f}  min:{stats['min']:.2f}  max:{stats['max']:.2f}"
         fig.text(0.5, 0.01, stat_str, ha="center", fontsize=10)
     plt.show()
 

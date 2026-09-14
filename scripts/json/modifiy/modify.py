@@ -10,7 +10,7 @@ from util.rw_file import rfile, wfile
 data = rfile(r"data.json", typ="json")
 
 for item in data:
-    item['salesOrderNumber'] = 'test-2025-17-07-00' + str(count)
-    item['originalSalesOrderNumber']  = 'test-2025-17-07-00' + str(count) + '-ori'
+    item["salesOrderNumber"] = "test-2025-17-07-00" + str(count)
+    item["originalSalesOrderNumber"] = "test-2025-17-07-00" + str(count) + "-ori"
     count += 1
-print(json.dumps(data) )
+print(json.dumps(data))

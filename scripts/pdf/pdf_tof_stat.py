@@ -86,7 +86,7 @@ def toc_stats(
     toc_items: list[TocItem],
     page_count: int,
     *,
-    top_n:int=5,
+    top_n: int = 5,
     exclude_func: Callable[[TocItem], bool] = lambda item: True,
 ):
     lv = 1
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     toc, total_pages = get_pdf_toc(ROOT)
     toc_items = process_toc(toc, total_pages)
     # print(json.dumps([asdict(i) for i in toc_items], indent=2, ensure_ascii=False))
-    
+
     print(f"\n<{' STATS ':=^80}>\n")
     print(
         toc_stats(

@@ -21,6 +21,7 @@ from util.rw_file import rfile, wfile
 INPUT_FILE = "remove_blank_input.txt"
 ONPUT_FILE = "remove_blank_output.txt"
 
+
 def remove_blank(s: str) -> str:
     return s.translate(str.maketrans("", "", string.whitespace))
 
