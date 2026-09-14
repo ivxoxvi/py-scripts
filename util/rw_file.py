@@ -23,6 +23,22 @@ def rfile(path: str | Path, *, typ: Literal["tsv"]) -> list[dict[str, str]]: ...
 
 
 def rfile(path: str | Path, *, typ="str"):
+    """Read file according to the specified file type.
+
+    if the input path is relative, it will be resolved aginest caller's file directory.
+
+    Args:
+        path: File path, either relative or absolute.
+        typ: File type to parse. Supported options: `str`, `list`, `json`, `jsonl`, `csv`, `tsv`.
+
+    Returns:
+        Return type is determined by `typ`:
+            - `str`: str
+            - `list`: list[str]
+            - `json`: Any (parsed JSON object)
+            - `jsonl`: list[Any] (list of parsed JSON objects)
+            - `csv` / `tsv`: list[dict[str, str]]
+    """
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
         path = Path(caller_file).parent / path
@@ -106,6 +122,17 @@ def wfile(
     root: str | Path = DEFAULT_OUTPUT_ROOT,
     append: bool = False,
 ):
+    """Write file according to the specified file type.
+
+    if the input path is relative, it will be resolved aginest caller's file directory.
+
+    Args:
+        data: Data to be written.
+        path: Output file path, either relative or absolute..
+        typ: File format to write. Supported options: `str`, `list`, `json`, `jsonl`, `csv`
+        root: Root directory for relative output paths. Default: `output/`
+        append: If True, append to the file. If False, overwrite the file.
+    """
     if not Path(path).is_absolute():
         caller_file = inspect.stack()[1].filename
         path = Path(caller_file).parent / root / path
