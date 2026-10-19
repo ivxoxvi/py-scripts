@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "anyio>=4.15.1",
     "matplotlib>=3.11.1",
     "numpy>=2.5.1",
     "pandas>=3.0.5",
@@ -12,14 +13,6 @@ dependencies = [
     "requests>=2.34.2",
     "seaborn>=0.13.2",
     "unrpa>=2.3.0",
-]
-
-[tool.pylint.messages_control]
-disable = [
-    "missing-module-docstring",
-    "missing-class-docstring",
-    "missing-function-docstring",
-    "W0621"
 ]
 
 [dependency-groups]
@@ -30,4 +23,10 @@ dev = [
     "ruff>=0.16.7",
 ]
 
-
+[tool.pylint.messages_control]
+disable = [
+    "missing-module-docstring",
+    "missing-class-docstring",
+    "missing-function-docstring",
+    "W0621"
+]
