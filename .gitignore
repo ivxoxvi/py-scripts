@@ -4,6 +4,7 @@ output
 output.*
 *.log
 temp
+/vendor
 
 # Python
 __pycache__
