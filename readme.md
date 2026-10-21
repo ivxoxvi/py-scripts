@@ -1,3 +1,3 @@
 # Readme
 
-A collection of Python scripts that I’ve written, for both work and personal use.
+A collection of Python scripts for both work and personal use.
