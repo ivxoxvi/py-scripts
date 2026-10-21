@@ -1,5 +1,4 @@
 import csv
-import inspect
 import json
 import os
 import tempfile
@@ -9,6 +8,7 @@ from pathlib import Path
 from typing import Any, Literal, overload
 
 import anyio.to_thread
+from meta import caller_dir
 
 # Supported data formats
 DataType = Literal["str", "list", "json", "jsonl", "csv", "tsv"]
@@ -27,20 +27,6 @@ DEFAULT_OUTPUT_ROOT = Path("output")
 
 # Delimiter of separated-values files
 _SV_DELIM = {"csv": ",", "tsv": "\t"}
-
-
-def _caller_dir(depth: int = 1) -> Path:
-    """Return the directory path of the caller at the specified stack depth.
-
-    Args:
-        depth (int, optional): How many stack frames you want to walk backward
-            from the immediate caller.
-            Defaults to 1.
-
-    Returns:
-        Path: Absolute directory of the source file for the target stack frame.
-    """
-    return Path(inspect.stack(context=0)[depth + 1].filename).resolve().parent
 
 
 def _resolve_typ(path: Path) -> DataType:
@@ -161,7 +147,7 @@ def rfile(path: str | Path, *, typ: DataType | Literal["auto"] = "auto") -> Any:
     """
     p = Path(path)
     if not p.is_absolute():
-        p = _caller_dir() / p
+        p = caller_dir() / p
     return _read(p, typ)
 
 
@@ -194,7 +180,7 @@ def wfile(
     """
     p = Path(path)
     if not p.is_absolute():
-        p = _caller_dir() / root / p
+        p = caller_dir() / root / p
     _write(data, p, typ, append)
     return p
 
@@ -241,12 +227,3 @@ async def wfile_async(
             If False, overwrite the file. Defaults to False.
     """
     await anyio.to_thread.run_sync(partial(_write, data, Path(path), typ, append))
-
-
-def curr_dir() -> Path:
-    """Return the directory of the file that calls this function."""
-    return _caller_dir()
-
-
-if __name__ == "__main__":
-    pass

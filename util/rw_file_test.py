@@ -4,9 +4,7 @@ import json
 from pathlib import Path
 
 import pytest
-
 from rw_file import (
-    curr_dir,
     rfile,
     rfile_async,
     wfile,
@@ -297,10 +295,6 @@ def test_rfile_relative_independent_of_cwd(tmp_path, monkeypatch):
         assert rfile("_pytest_tmp_cwd.txt") == "cwd"
     finally:
         target.unlink(missing_ok=True)
-
-
-def test_curr_dir_is_caller_dir():
-    assert curr_dir() == HERE
 
 
 # ---------------------------------------------------------------- errors / atomicity
