@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 import sys
 import urllib.request
-from pathlib import Path
 from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
 from util.rw_file import rfile, wfile
-
 
 DOWNLOAD_URL_FILE = "download_urls.txt"
 DOWNLOAD_DIR = "downloads"

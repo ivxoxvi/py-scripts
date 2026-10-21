@@ -37,6 +37,7 @@ def newlog(
         if t == "file":
             if filepath is None:
                 filepath = caller_file().with_suffix(".log")
+            Path(filepath).parent.mkdir(parents=True,exist_ok=True)
             handler = RotatingFileHandler(
                 filepath,
                 maxBytes=5 * 1024 * 1024,
@@ -57,7 +58,7 @@ def newlog(
 if __name__ == "__main__":
     log = newlog(
         ["std", "file"],
-        filepath="/Users/vxoxvx/Code/Projects/Scripts/py-scripts/scripts/aaaaa.log",
+        filepath="/Users/vxoxvx/Code/Projects/Scripts/py-scripts/scripts/似懂非懂/aaaaa.log",
     )
     log.info("hello")
     log.error("something wrong")

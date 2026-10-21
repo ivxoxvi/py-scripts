@@ -1,12 +1,13 @@
-from unrpa import UnRPA
-from pathlib import Path
 import sys
+from pathlib import Path
+
+from unrpa import UnRPA
 
 sys.path.append(str(Path(__file__).parent.parent.parent))
-from util.rw_file import curr_dir
+from util.rw_file import caller_dir
 
 ROOT = "/Users/vxoxvx/Downloads/goodluke_thegame-1/goodluke_thegame.app/Contents/Resources/autorun/game/audio.rpa"
-OUTPUT = str(curr_dir() / "output" / "resources")
+OUTPUT = str(caller_dir() / "output" / "resources")
 
 unrpaer = UnRPA(
     filename=ROOT,
