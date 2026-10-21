@@ -8,12 +8,14 @@ from dataclasses import dataclass
 from os import PathLike
 from typing import TYPE_CHECKING, Any, Literal, TypeAlias
 
+from meta import curr_dir
+
 if TYPE_CHECKING:
     from matplotlib.axes import Axes
 
-Item: TypeAlias = tuple[Any, float]
-SortMode: TypeAlias = Literal["none", "asc", "desc"]
-Plotter: TypeAlias = "Callable[[Axes, Sequence[Any], Sequence[float]], object]"
+type Item = tuple[Any, float]
+type SortMode = Literal["none", "asc", "desc"]
+type Plotter = "Callable[[Axes, Sequence[Any], Sequence[float]], object]"
 
 
 # ---------- 统计 ----------
@@ -128,8 +130,11 @@ def render_plots(
         plt.rcParams["font.sans-serif"] = _FONTS
         plt.rcParams["axes.unicode_minus"] = False
         fig, axes = plt.subplots(
-            1, len(plot_types), figsize=(5 * len(plot_types), 4),
-            squeeze=False, layout="constrained",
+            1,
+            len(plot_types),
+            figsize=(5 * len(plot_types), 4),
+            squeeze=False,
+            layout="constrained",
         )
         try:
             for ax, t in zip(axes[0], plot_types):
@@ -205,6 +210,6 @@ if __name__ == "__main__":
         typ="bar,pie",
         key_func=str.upper,
         sort="desc",
-        save_path="demo.png",
+        save_path=curr_dir() / "output" / "demo.png",
     )
     print(s)
