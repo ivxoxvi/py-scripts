@@ -6,7 +6,7 @@ import warnings
 from collections.abc import Callable, Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from os import PathLike
-from typing import TYPE_CHECKING, Any, Literal, TypeAlias
+from typing import TYPE_CHECKING, Any, Literal
 
 from meta import curr_dir
 
