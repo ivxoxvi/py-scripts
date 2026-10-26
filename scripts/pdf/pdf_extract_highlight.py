@@ -36,7 +36,7 @@ def extract_highlights(pdf_path):
 
 
 if __name__ == "__main__":
-    ROOT = "/Users/vxoxvx/Downloads/朗文9000词（实际7000多）.pdf"
+    ROOT = "/Users/vxoxvx/Shelf/朗文9000词（实际7000多）.pdf"
 
     extracted = extract_highlights(ROOT)
     for item in extracted:

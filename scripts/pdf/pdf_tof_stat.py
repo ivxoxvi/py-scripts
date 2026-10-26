@@ -1,11 +1,31 @@
+import sys
 import unicodedata
 from collections.abc import Callable
-from dataclasses import asdict, dataclass
-import json
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Annotated
 
 import fitz
+import typer
 
-ROOT = "/Users/vxoxvx/Shelf/旋元佑文法.pdf"
+TARGET = "/Users/vxoxvx/Shelf/Operating Systems Three Easy Pieces (Remzi H. Arpaci-Dusseau etc.).pdf"
+
+
+def add_proj_root_to_path():
+    """add project dir to the path"""
+    i, max_layer = 0, 5
+    root = Path(__file__).resolve()
+    while not (root / "pyproject.toml").exists():
+        if i == max_layer or root == root.parent:
+            raise FileNotFoundError("can't find the project root")
+        root = root.parent
+        i += 1
+    if str(root) not in sys.path:
+        sys.path.append(str(root))
+
+
+add_proj_root_to_path()
+from util.print import print_sep
 
 
 def calc_display_width(s: str) -> int:
@@ -39,10 +59,15 @@ def find_next_item_by_lv(index, level, toc):
 
 @dataclass
 class TocItem:
+    # Nesting level in the table of contents
     level: int
+    # Chapter title
     title: str
+    # Starting page number
     start: int
+    # Number of pages in this chapter
     length: int
+    # Fraction of the total book this chapter occupies
     ratio: float
 
 
@@ -106,12 +131,12 @@ def toc_stats(
     lines += [f"Median Pages by Chapter : {item_lv1[len(item_lv1) // 2].length:>4}"] + [
         "\n"
     ]
-    lines += [f"Level {lv} TOC Entries (Max Pages Top {top_n}):"]
+    lines += [f"Level {lv} ToC Entries (Max Pages Top {top_n}):"]
     lines += [
         f"  {item.title.ljust(calc_real_width(item.title, max_display_width))}{' ' * 5}{item.length:4} ({item.ratio * 100:.1f}%)"
         for item in max5
     ] + ["\n"]
-    lines += [f"Level {lv} TOC Entries (Min Pages Top {top_n}):"]
+    lines += [f"Level {lv} ToC Entries (Min Pages Top {top_n}):"]
     lines += [
         f"  {item.title.ljust(calc_real_width(item.title, max_display_width))}{' ' * 5}{item.length:4} ({item.ratio * 100:.1f}%)"
         for item in min5
@@ -119,19 +144,23 @@ def toc_stats(
     return "\n".join(lines)
 
 
-if __name__ == "__main__":
-    toc, total_pages = get_pdf_toc(ROOT)
-    toc_items = process_toc(toc, total_pages)
+def main(target: Annotated[str, typer.Argument(help="pdf file")] = TARGET):
+    toc, page_count = get_pdf_toc(target)
+    toc_items = process_toc(toc, page_count)
     # print(json.dumps([asdict(i) for i in toc_items], indent=2, ensure_ascii=False))
 
-    print(f"\n<{' STATS ':=^80}>\n")
+    print_sep("STATS")
     print(
         toc_stats(
             toc_items,
-            total_pages,
+            page_count,
             top_n=10,
             exclude_func=lambda a: a.length < 10,
         )
     )
-    print(f"\n<{' Table of Content ':=^80}>\n")
+    print_sep("Table of Content")
     print(fmt_toc(toc_items, indent=4))
+
+
+if __name__ == "__main__":
+    typer.run(main)

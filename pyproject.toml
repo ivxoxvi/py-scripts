@@ -14,7 +14,9 @@ dependencies = [
     "pymupdf>=1.28.0",
     "requests>=2.34.2",
     "seaborn>=0.13.2",
+    "typer>=0.27.3",
     "unrpa>=2.3.0",
+    "wcwidth>=0.9.4",
 ]
 
 [dependency-groups]
