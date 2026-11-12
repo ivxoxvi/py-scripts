@@ -1,5 +1,9 @@
 import fitz
 
+from util.rw_file import wfile
+
+PDF_FILE = "/Users/vxoxvx/Library/Mobile Documents/com~apple~CloudDocs/Shelf/朗文9000词（实际7000多）.pdf"
+
 
 def extract_highlights(pdf_path):
     with fitz.open(pdf_path) as doc:
@@ -36,9 +40,8 @@ def extract_highlights(pdf_path):
 
 
 if __name__ == "__main__":
-    ROOT = "/Users/vxoxvx/Shelf/朗文9000词（实际7000多）.pdf"
-
-    extracted = extract_highlights(ROOT)
+    extracted = extract_highlights(PDF_FILE)
+    wfile([item["text"] for item in extracted], "langman9000.txt")
     for item in extracted:
         print(f"第{item['page']}页: {item['text']}")
         if item["comment"]:

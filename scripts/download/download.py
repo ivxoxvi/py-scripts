@@ -1,49 +1,77 @@
-#!/usr/bin/env python3
+import os
 import sys
+import urllib.error
+import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.append(str(Path(__file__).parent.parent))
-from util.rw_file import rfile, wfile
+from util.rw_file import rfile
 
-DOWNLOAD_URL_FILE = "download_urls.txt"
+DOWNLOAD_URLS_FILE = "download_urls.txt"
 DOWNLOAD_DIR = "downloads"
 
 
-def download(url: str, dest: Path):
-    """
-    下载文件
-    """
+def download(url: str, dest: Path, chunk_size: int = 8192) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    # for atomic download
+    tmp = dest.with_suffix(dest.suffix + ".tmp")
 
-    def _progress(block_num, block_size, total_size):
-        if total_size <= 0:
-            sys.stdout.write(f"\r已接收 {block_num * block_size / 1024:.1f} KB")
-        else:
-            percent = min(100, 100 * block_num * block_size / total_size)
-            sys.stdout.write(f"\r{percent:6.2f}%  {dest.name}")
+    req = urllib.request.Request(url, headers={"User-Agent": "python-urllib"})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            total = resp.getheader("content-length")
+            total_size = int(total) if total is not None else -1
+            received = 0
+
+            with tmp.open("wb") as f:
+                while chunk := resp.read(chunk_size):
+                    f.write(chunk)
+                    received += len(chunk)
+                    if total_size <= 0:
+                        sys.stdout.write(f"\r已接收 {received / 1024:.1f} KB")
+                    else:
+                        pct = min(100.0, received * 100 / total_size)
+                        sys.stdout.write(f"\r{pct:6.2f}%  {dest.name}")
+                    sys.stdout.flush()
+
+        os.rename(tmp, dest)
+        sys.stdout.write("\r" + " " * 60 + "\r")
         sys.stdout.flush()
 
-    dest.parent.mkdir(parents=True, exist_ok=True)
-    try:
-        urllib.request.urlretrieve(url, dest, _progress)
-    except Exception as e:
-        print(f"\n❌ {url}失败:", e, file=sys.stderr)
+    except urllib.error.HTTPError as e:
+        print(f"\n❌ HTTP {e.code}: {url}", file=sys.stderr)
+        tmp.unlink(missing_ok=True)
+        raise
+    except urllib.error.URLError as e:
+        print(f"\n❌ 网络错误 {url}: {e.reason}", file=sys.stderr)
+        tmp.unlink(missing_ok=True)
+        raise
+    except OSError as e:
+        print(f"\n❌ 文件写入失败 {dest}: {e}", file=sys.stderr)
+        tmp.unlink(missing_ok=True)
+        raise
+    except ValueError as _e:
+        print(f"\n❌ URL 非法: {url}", file=sys.stderr)
+        tmp.unlink(missing_ok=True)
+        raise
 
 
-def generate_save_path(args: tuple, idx: int) -> Path:
+def gen_save_path(row: list[str], idx: int) -> Path:
     """
     生成文件保存路径
     """
-    filename = None
-    if len(args) > 1 and args[1].strip():
-        filename = args[1].strip()
-
-    filename = urllib.parse.unquote(args[0].split("/")[-1].split("?")[0])
+    filename: str | None = None
+    if len(row) > 1 and row[1].strip():
+        filename = row[1].strip()
+    else:
+        filename = urllib.parse.unquote(row[0].split("/")[-1].split("?")[0])
+        
     if not filename:
         filename = f"download-{idx}"
 
     counter = 1
+
     save_path = Path(__file__).resolve().parent / Path(DOWNLOAD_DIR) / filename
     stem, suffix = save_path.stem, save_path.suffix
     while save_path.exists():
@@ -52,16 +80,21 @@ def generate_save_path(args: tuple, idx: int) -> Path:
     return save_path
 
 
-download_entrys = [
-    url.strip()
-    for url in rfile(DOWNLOAD_URL_FILE, typ="list")
-    if not url.startswith("# ") and url.strip()
-]
+# Usage:
+# download_urls.txt:
+# url1 filename1
+# url2 filename2
+# ...
+if __name__ == "__main__":
+    download_entrys = [
+        url.strip()
+        for url in rfile(DOWNLOAD_URLS_FILE, typ="list")
+        if not url.startswith("# ") and url.strip()
+    ]
 
-for idx, entry in enumerate(download_entrys):
-    args = tuple(entry.split(" "))
+    for idx, entry in enumerate(download_entrys):
+        row = entry.split(" ")
+        save_path = gen_save_path(row, idx)
+        download(row[0], save_path)
 
-    save_path = generate_save_path(args, idx)
-    download(args[0], save_path)
-
-# TODO: 改为工作窃取的多线程下载
+    # TODO: 改为工作窃取的多线程下载

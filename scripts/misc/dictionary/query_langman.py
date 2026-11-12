@@ -9,12 +9,10 @@ _con: sqlite3.Connection | None = None
 
 # 排除 class 含 cn_txt 的节点内的文本(即去掉中文翻译)
 _NO_CN_TEXT = (
-    './/text()[not(ancestor-or-self::*'
+    ".//text()[not(ancestor-or-self::*"
     '[contains(concat(" ", normalize-space(@class), " "), " cn_txt ")])]'
 )
 
-
-# ---------- 数据结构 ----------
 
 @dataclass
 class Example:
@@ -24,9 +22,9 @@ class Example:
 
 @dataclass
 class Sense:
-    signpost: str | None = None      # 义项标签,如 SHORT/NOT LONG
-    en: str = ""                     # 英文释义
-    cn: str | None = None            # 中文释义
+    signpost: str | None = None  # 义项标签,如 SHORT/NOT LONG
+    en: str = ""  # 英文释义
+    cn: str | None = None  # 中文释义
     examples: list[Example] = field(default_factory=list)
 
 
@@ -67,6 +65,7 @@ class WordResult:
 
 
 # ---------- 解析 ----------
+
 
 def _all_text(sel: SelectorList) -> str | None:
     if not sel:
@@ -111,6 +110,7 @@ def _parse_html(html: str) -> Entry:
 
 # ---------- 查询 ----------
 
+
 def _get_con() -> sqlite3.Connection:
     global _con
     if _con is None:
@@ -124,44 +124,49 @@ def query(word: str, max_redirect: int = 5) -> WordResult:
     seen: set[int] = set()
 
     def _lookup(w: str, depth: int) -> None:
-        rows = _get_con().execute(
-            """
+        rows = (
+            _get_con()
+            .execute(
+                """
             SELECT e.id, e.defi
             FROM term t JOIN entry e ON e.id = t.entry_id
             WHERE t.term = ?
             ORDER BY e.id
             """,
-            (w,),
-        ).fetchall()
+                (w,),
+            )
+            .fetchall()
+        )
 
         for entry_id, defi in rows:
             if entry_id in seen:
                 continue
             seen.add(entry_id)
 
-            if defi.startswith("@@@LINK="):          # 重定向词条
+            if defi.startswith("@@@LINK="):  # 重定向词条
                 if depth < max_redirect:
-                    _lookup(defi[len("@@@LINK="):].strip().lower(), depth + 1)
+                    _lookup(defi[len("@@@LINK=") :].strip().lower(), depth + 1)
             else:
                 result.entries.append(_parse_html(defi))
 
     _lookup(word.strip().lower(), 0)
     return result
 
+
 if __name__ == "__main__":
     r = query("abridged")
-    
+
     if not r:
         print("没找到")
     else:
-        print(r.en_definitions)    # 英文释义列表
-        print(r.cn_definitions)    # 中文释义列表
-        for ex in r.examples:      # 例句
+        print(r.en_definitions)  # 英文释义列表
+        print(r.cn_definitions)  # 中文释义列表
+        for ex in r.examples:  # 例句
             print(ex.en, "|", ex.cn)
-    
+
         # 也可以按义项逐个访问
         print("=======================")
         for s in r.senses:
-            print(s.signpost, "*****",s.en, "*****",s.cn)
+            print(s.signpost, "*****", s.en, "*****", s.cn)
             for ex in s.examples:
                 print("  ", ex.en, ex.cn)

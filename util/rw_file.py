@@ -1,6 +1,7 @@
 import csv
 import json
 import os
+import sys
 import tempfile
 from functools import partial
 from io import StringIO
@@ -8,13 +9,32 @@ from pathlib import Path
 from typing import Any, Literal, overload
 
 import anyio.to_thread
-from meta import caller_dir
+
+
+def add_proj_root_to_path():
+    """add project dir to the path"""
+    i, max_layer = 0, 5
+    root = Path(__file__).resolve()
+    while not (root / "pyproject.toml").exists():
+        if i == max_layer or root == root.parent:
+            raise FileNotFoundError("can't find the project root")
+        root = root.parent
+        i += 1
+    if str(root) not in sys.path:
+        sys.path.append(str(root))
+
+
+add_proj_root_to_path()
+
+
+from util.meta import caller_dir
 
 # Supported data formats
 DataType = Literal["str", "list", "json", "jsonl", "csv", "tsv"]
 
 # File suffix -> data type, used when `typ="auto"`. Unlisted suffixes fall back to `str`.
 _SUFFIX_TYPES: dict[str, DataType] = {
+    ".txt": "list",
     ".json": "json",
     ".jsonl": "jsonl",
     ".ndjson": "jsonl",
